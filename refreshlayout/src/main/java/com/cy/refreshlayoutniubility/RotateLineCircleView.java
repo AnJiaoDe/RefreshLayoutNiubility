@@ -113,6 +113,14 @@ public class RotateLineCircleView extends View implements IAnimationView {
 
     }
 
+    public Paint getPaint_out() {
+        return paint_out;
+    }
+
+    public Paint getPaint_in() {
+        return paint_in;
+    }
+
     /**
      * 恢复初始状态值
      */

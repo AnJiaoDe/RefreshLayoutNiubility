@@ -37,6 +37,10 @@ public class CircleView extends View {
         return this;
     }
 
+    public Paint getPaint() {
+        return paint;
+    }
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(MeasureSpec.makeMeasureSpec((int) (2 * radius), MeasureSpec.EXACTLY),
