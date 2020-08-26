@@ -136,6 +136,10 @@ public class ThreeScaleCircleView extends LinearLayout implements IAnimationView
         return this;
     }
 
+    public Paint getPaint() {
+        return paint;
+    }
+
     @Override
     public View getView() {
         return this;
