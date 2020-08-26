@@ -25,7 +25,7 @@ import androidx.annotation.Nullable;
  * @UpdateRemark:
  * @Version:
  */
-public class RotateLineCircleView extends View implements IAnimationView {
+public class RotateLineCircleView extends View implements IAnimationView ,ILoadingView{
     private Paint paint_out;
     private Paint paint_in;
     private Context context;
