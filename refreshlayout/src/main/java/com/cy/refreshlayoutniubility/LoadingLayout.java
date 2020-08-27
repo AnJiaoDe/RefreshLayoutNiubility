@@ -62,14 +62,16 @@ public class LoadingLayout extends FrameLayout {
         return  this;
     }
 
-    public void setOnLoadingCallback(OnLoadingCallback onLoadingCallback) {
+    public LoadingLayout setOnLoadingCallback(OnLoadingCallback onLoadingCallback) {
         this.onLoadingCallback = onLoadingCallback;
+        return this;
     }
-    public void startLoad(){
+    public LoadingLayout startLoad(){
         loadingView.startLoadAnimation();
         onLoadingCallback.onLoadStart();
+        return this;
     }
-    public void stopLoad(){
+    public LoadingLayout stopLoad(){
         loadingView.closeLoadAnimation(new AnimationViewCallback() {
             @Override
             public void onLoadOpened() {
@@ -81,6 +83,7 @@ public class LoadingLayout extends FrameLayout {
                onLoadingCallback.onLoadFinish();
             }
         });
+        return this;
     }
 
     public RotateLineCircleView getLoadingView() {
