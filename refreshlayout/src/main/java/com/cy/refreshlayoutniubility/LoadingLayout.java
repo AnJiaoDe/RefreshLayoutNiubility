@@ -1,7 +1,10 @@
 package com.cy.refreshlayoutniubility;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.Animatable2;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -20,7 +23,7 @@ import androidx.annotation.Nullable;
  * @Version:
  */
 public class LoadingLayout extends FrameLayout {
-    private ILoadingView loadingView;
+    private RotateLineCircleView loadingView;
     private View contentView;
     private OnLoadingCallback onLoadingCallback;
     public LoadingLayout(@NonNull Context context) {
@@ -30,7 +33,16 @@ public class LoadingLayout extends FrameLayout {
     public LoadingLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         loadingView=new RotateLineCircleView(context);
-        addView(loadingView.getView(),new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+        setBackgroundColor(Color.WHITE);
+        LayoutParams layoutParams_child = new LayoutParams(ScreenUtils.dpAdapt(context, 30), ScreenUtils.dpAdapt(context, 30));
+        layoutParams_child.gravity = Gravity.CENTER;
+        addView(loadingView.getView(),layoutParams_child);
+        loadingView.getView().setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startLoad();
+            }
+        });
     }
 
     @Override
@@ -55,8 +67,23 @@ public class LoadingLayout extends FrameLayout {
     }
     public void startLoad(){
         loadingView.startLoadAnimation();
+        onLoadingCallback.onLoadStart();
     }
     public void stopLoad(){
-        loadingView.stopLoadAnimation();
+        loadingView.closeLoadAnimation(new AnimationViewCallback() {
+            @Override
+            public void onLoadOpened() {
+
+            }
+
+            @Override
+            public void onLoadClosed() {
+               onLoadingCallback.onLoadFinish();
+            }
+        });
+    }
+
+    public RotateLineCircleView getLoadingView() {
+        return loadingView;
     }
 }

@@ -238,7 +238,7 @@ public class BaseHeadView extends FrameLayout implements IHeadView {
     @Override
     public void refreshFinish() {
 //        LogUtils.log("refreshFinish");
-        animationView.closeLoadAnimation(new IAnimationView.IAnimationViewCallback() {
+        animationView.closeLoadAnimation(new AnimationViewCallback() {
             @Override
             public void onLoadOpened() {
 
@@ -264,7 +264,7 @@ public class BaseHeadView extends FrameLayout implements IHeadView {
 
     @Override
     public void refreshFinish(final RefreshFinishListener refreshFinishListener) {
-        animationView.closeLoadAnimation(new IAnimationView.IAnimationViewCallback() {
+        animationView.closeLoadAnimation(new AnimationViewCallback() {
             @Override
             public void onLoadOpened() {
 

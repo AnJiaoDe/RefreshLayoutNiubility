@@ -42,11 +42,11 @@ public class MainActivity extends AppCompatActivity {
                         refreshLayout.finishRefresh(new RefreshFinishListener() {
                             @Override
                             public void onRefreshFinish(final FrameLayout headLayout) {
-                                final TextView textView=new TextView(headLayout.getContext());
+                                final TextView textView = new TextView(headLayout.getContext());
                                 textView.setGravity(Gravity.CENTER);
                                 textView.setBackgroundColor(Color.WHITE);
                                 textView.setText("有8条更新");
-                                headLayout.addView(textView,new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                                headLayout.addView(textView, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
@@ -54,13 +54,13 @@ public class MainActivity extends AppCompatActivity {
                                         headLayout.removeView(textView);
                                         refreshLayout.closeRefresh();
                                     }
-                                },2000);
+                                }, 2000);
                             }
                         });
 //                        refreshLayout.finishRefresh();
 
                     }
-                },3000);
+                }, 3000);
 
             }
 
@@ -80,12 +80,12 @@ public class MainActivity extends AppCompatActivity {
                         refreshLayout.finishLoadMore(new LoadMoreFinishListener() {
                             @Override
                             public void onLoadMoreFinish(final FrameLayout footLayout) {
-                                final TextView textView=new TextView(footLayout.getContext());
+                                final TextView textView = new TextView(footLayout.getContext());
                                 textView.setGravity(Gravity.CENTER);
                                 textView.setBackgroundColor(Color.WHITE);
                                 textView.setTextColor(Color.RED);
                                 textView.setText("有8条更新");
-                                footLayout.addView(textView,new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                                footLayout.addView(textView, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
@@ -93,13 +93,13 @@ public class MainActivity extends AppCompatActivity {
                                         footLayout.removeView(textView);
                                         refreshLayout.closeLoadMore();
                                     }
-                                },2000);
+                                }, 2000);
                             }
 
                         });
 //                        refreshLayout.finishLoadMore();
                     }
-                },3000);
+                }, 3000);
             }
 
             @Override
@@ -108,6 +108,26 @@ public class MainActivity extends AppCompatActivity {
                 LogUtils.log("onLoadMoreFinish");
             }
         });
+
+        final LoadingLayout loadingLayout = findViewById(R.id.loadinglayout);
+        loadingLayout.setOnLoadingCallback(new OnLoadingCallback() {
+            @Override
+            public void onLoadStart() {
+                LogUtils.log("onLoadStart");
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadingLayout.stopLoad();
+                    }
+                }, 3000);
+            }
+
+            @Override
+            public void onLoadFinish() {
+             LogUtils.log("onLoadFinish");
+            }
+        });
+        loadingLayout.startLoad();
 
 //        findViewById(R.id.tv).setOnClickListener(new View.OnClickListener() {
 //            @Override

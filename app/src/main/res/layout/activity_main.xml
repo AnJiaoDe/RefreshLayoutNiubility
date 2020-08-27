@@ -7,15 +7,18 @@
     android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-
-    <TextView
+    <com.cy.refreshlayoutniubility.LoadingLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv"
-        android:background="#eee"
-        android:text="Hello World!\nHel\nHello\nHello\nHello\nHello\nHello\nHello\nHello World!\nHello World!\nHello World!\nHello World!\n"
-        android:textColor="#454545"
-        android:textSize="20sp" />
+        android:id="@+id/loadinglayout"
+        android:layout_height="match_parent"/>
+<!--    <TextView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/tv"-->
+<!--        android:background="#eee"-->
+<!--        android:text="Hello World!\nHel\nHello\nHello\nHello\nHello\nHello\nHello\nHello World!\nHello World!\nHello World!\nHello World!\n"-->
+<!--        android:textColor="#454545"-->
+<!--        android:textSize="20sp" />-->
 <!--    <Button-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:text="大哥大哥"-->

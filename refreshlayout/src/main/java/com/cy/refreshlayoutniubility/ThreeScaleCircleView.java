@@ -162,12 +162,12 @@ public class ThreeScaleCircleView extends LinearLayout implements IAnimationView
     }
 
     @Override
-    public void openLoadAnimation(IAnimationViewCallback animationViewCallback) {
+    public void openLoadAnimation(AnimationViewCallback animationViewCallback) {
 
     }
 
     @Override
-    public void closeLoadAnimation(IAnimationViewCallback animationViewCallback) {
+    public void closeLoadAnimation(AnimationViewCallback animationViewCallback) {
 
     }
 

@@ -12,7 +12,7 @@ public interface IAnimationView {
 
     public <T extends IAnimationView> T setColor(int color);
 
-    public void openLoadAnimation(IAnimationViewCallback animationViewCallback);
+    public void openLoadAnimation(AnimationViewCallback animationViewCallback);
 
     /**
      * 开始load动画
@@ -25,7 +25,7 @@ public interface IAnimationView {
     public void stopLoadAnimation();
 
 
-    public void closeLoadAnimation(IAnimationViewCallback animationViewCallback);
+    public void closeLoadAnimation(AnimationViewCallback animationViewCallback);
 
     /**
      * 停止所有动画
@@ -36,13 +36,6 @@ public interface IAnimationView {
 
     public void onDraging(int height_current, int height_load, int height_max);
 
-
     public void onDragClosed();
 
-    public static interface IAnimationViewCallback {
-
-        public void onLoadOpened();
-
-        public void onLoadClosed();
-    }
 }

@@ -25,7 +25,7 @@ import androidx.annotation.Nullable;
  * @UpdateRemark:
  * @Version:
  */
-public class RotateLineCircleView extends View implements IAnimationView ,ILoadingView{
+public class RotateLineCircleView extends View implements IAnimationView{
     private Paint paint_out;
     private Paint paint_in;
     private Context context;
@@ -224,13 +224,13 @@ public class RotateLineCircleView extends View implements IAnimationView ,ILoadi
     }
 
     @Override
-    public void openLoadAnimation(IAnimationViewCallback animationViewCallback) {
+    public void openLoadAnimation(AnimationViewCallback animationViewCallback) {
 //        cancelAllAnimation();
 //        valueAnimator_open.start();
     }
 
     @Override
-    public void closeLoadAnimation(final IAnimationViewCallback animationViewCallback) {
+    public void closeLoadAnimation(final AnimationViewCallback animationViewCallback) {
 //        LogUtils.log("closeLoadAnimation");
         cancelAllAnimation();
         close(new AnimatorListenerAdapter() {
@@ -263,6 +263,7 @@ public class RotateLineCircleView extends View implements IAnimationView ,ILoadi
     public void stopLoadAnimation() {
         cancelAllAnimation();
     }
+
 
     @Override
     public void cancelAllAnimation() {
