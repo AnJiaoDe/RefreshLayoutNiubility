@@ -75,9 +75,9 @@ public class RefreshLayoutNiubility extends LinearLayout {
         this.context = context;
 
         setOrientation(VERTICAL);
-        headView = new BaseHeadView(context);
+        headView = new HeadViewSimple(context);
         contentView = new View(context);
-        footView = new BaseFootView(context);
+        footView = new FootViewSimple(context);
         onPullListener = new OnPullListener() {
             @Override
             public void onRefreshStart() {

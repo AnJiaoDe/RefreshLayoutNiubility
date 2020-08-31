@@ -223,11 +223,11 @@ public class RotateLineCircleView extends View implements IAnimationView{
         return false;
     }
 
-    @Override
-    public void openLoadAnimation(AnimationViewCallback animationViewCallback) {
-//        cancelAllAnimation();
-//        valueAnimator_open.start();
-    }
+//    @Override
+//    public void openLoadAnimation(AnimationViewCallback animationViewCallback) {
+////        cancelAllAnimation();
+////        valueAnimator_open.start();
+//    }
 
     @Override
     public void closeLoadAnimation(final AnimationViewCallback animationViewCallback) {

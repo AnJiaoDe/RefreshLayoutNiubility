@@ -10,7 +10,7 @@ import android.view.ViewConfiguration;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 
-public class BaseFootView extends FrameLayout implements IFootView {
+public class FootViewSimple extends FrameLayout implements IFootView {
     private Context context;
     private IAnimationView animationView;
     private LoadMoreCallback callback;
@@ -24,7 +24,7 @@ public class BaseFootView extends FrameLayout implements IFootView {
     private boolean isLoadMoreing = false;
     private boolean vibrated=false;
 
-    public BaseFootView(Context context) {
+    public FootViewSimple(Context context) {
         super(context);
         this.context = context;
         LayoutParams layoutParams_child = new LayoutParams(
@@ -106,7 +106,7 @@ public class BaseFootView extends FrameLayout implements IFootView {
     }
 
     @Override
-    public BaseFootView getView() {
+    public FootViewSimple getView() {
         return this;
     }
 
@@ -251,7 +251,7 @@ public class BaseFootView extends FrameLayout implements IFootView {
     public void loadMoreFinish(final LoadMoreFinishListener loadMoreFinishListener) {
         animationView.stopLoadAnimation();
         if (callback != null) callback.onLoadMoreFinish();
-        loadMoreFinishListener.onLoadMoreFinish(BaseFootView.this);
+        loadMoreFinishListener.onLoadMoreFinish(FootViewSimple.this);
     }
 
 }

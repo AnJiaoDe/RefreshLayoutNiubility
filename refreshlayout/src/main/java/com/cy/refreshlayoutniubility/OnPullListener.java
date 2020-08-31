@@ -21,7 +21,4 @@ public abstract class OnPullListener {
     public void onLoadMoreCancel() {
     }
 
-//    public void onStateChanged(int state){
-//
-//    }
 }

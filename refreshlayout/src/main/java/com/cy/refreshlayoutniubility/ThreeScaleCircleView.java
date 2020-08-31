@@ -80,7 +80,6 @@ public class ThreeScaleCircleView extends LinearLayout implements IAnimationView
             animatorSet.setDuration(1400);
             animatorSet.playTogether(objectAnimator_scaleX, objectAnimator_scaleY,objectAnimator_alpha);
             animatorSet.setInterpolator(new AccelerateDecelerateInterpolator());
-
             animatorSets[i] = animatorSet;
 
             LayoutParams layoutParams = new LayoutParams(
@@ -161,14 +160,14 @@ public class ThreeScaleCircleView extends LinearLayout implements IAnimationView
         }
     }
 
-    @Override
-    public void openLoadAnimation(AnimationViewCallback animationViewCallback) {
-
-    }
+//    @Override
+//    public void openLoadAnimation(AnimationViewCallback animationViewCallback) {
+//    }
 
     @Override
     public void closeLoadAnimation(AnimationViewCallback animationViewCallback) {
-
+        stopLoadAnimation();
+        animationViewCallback.onLoadClosed();
     }
 
     @Override

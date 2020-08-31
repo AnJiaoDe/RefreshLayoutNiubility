@@ -10,7 +10,7 @@ import android.view.ViewConfiguration;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 
-public class BaseHeadView extends FrameLayout implements IHeadView {
+public class HeadViewSimple extends FrameLayout implements IHeadView {
     private Context context;
     private IAnimationView animationView;
     private RefreshCallback callback;
@@ -26,7 +26,7 @@ public class BaseHeadView extends FrameLayout implements IHeadView {
 
     private boolean isRefreshing = false;
     private boolean vibrated=false;
-    public BaseHeadView(Context context) {
+    public HeadViewSimple(Context context) {
         super(context);
         this.context = context;
         LayoutParams layoutParams_child = new LayoutParams(ScreenUtils.dpAdapt(context, 24), ScreenUtils.dpAdapt(context, 24));
@@ -115,7 +115,7 @@ public class BaseHeadView extends FrameLayout implements IHeadView {
     }
 
     @Override
-    public BaseHeadView getView() {
+    public HeadViewSimple getView() {
         return this;
     }
 
@@ -273,7 +273,7 @@ public class BaseHeadView extends FrameLayout implements IHeadView {
             @Override
             public void onLoadClosed() {
                 if (callback != null) callback.onRefreshFinish();
-                refreshFinishListener.onRefreshFinish(BaseHeadView.this);
+                refreshFinishListener.onRefreshFinish(HeadViewSimple.this);
             }
         });
 

@@ -126,8 +126,27 @@ public class MainActivity extends AppCompatActivity {
             public void onLoadFinish() {
              LogUtils.log("onLoadFinish");
             }
-        });
-        loadingLayout.startLoad();
+        }).startLoad();
+
+        final LoadingLayout loadingLayout2 = findViewById(R.id.loadinglayout2);
+        loadingLayout2.setLoadingView(new ThreeScaleCircleView(this));
+        loadingLayout2.setOnLoadingCallback(new OnLoadingCallback() {
+            @Override
+            public void onLoadStart() {
+                LogUtils.log("onLoadStart");
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadingLayout2.stopLoad();
+                    }
+                }, 3000);
+            }
+
+            @Override
+            public void onLoadFinish() {
+             LogUtils.log("onLoadFinish");
+            }
+        }).startLoad();
 
 //        findViewById(R.id.tv).setOnClickListener(new View.OnClickListener() {
 //            @Override

@@ -12,7 +12,7 @@ public interface IAnimationView {
 
     public <T extends IAnimationView> T setColor(int color);
 
-    public void openLoadAnimation(AnimationViewCallback animationViewCallback);
+//    public void openLoadAnimation(AnimationViewCallback animationViewCallback);
 
     /**
      * 开始load动画

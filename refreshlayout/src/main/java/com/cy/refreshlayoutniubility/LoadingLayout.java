@@ -23,7 +23,7 @@ import androidx.annotation.Nullable;
  * @Version:
  */
 public class LoadingLayout extends FrameLayout {
-    private RotateLineCircleView loadingView;
+    private IAnimationView loadingView;
     private View contentView;
     private OnLoadingCallback onLoadingCallback;
     public LoadingLayout(@NonNull Context context) {
@@ -37,12 +37,6 @@ public class LoadingLayout extends FrameLayout {
         LayoutParams layoutParams_child = new LayoutParams(ScreenUtils.dpAdapt(context, 30), ScreenUtils.dpAdapt(context, 30));
         layoutParams_child.gravity = Gravity.CENTER;
         addView(loadingView.getView(),layoutParams_child);
-        loadingView.getView().setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startLoad();
-            }
-        });
     }
 
     @Override
@@ -55,6 +49,12 @@ public class LoadingLayout extends FrameLayout {
             contentView = view;
     }
 
+    public LoadingLayout setLoadingView(IAnimationView animationView) {
+        removeView(loadingView.getView());
+        this.loadingView = animationView;
+        addView(loadingView.getView(), 0);
+        return  this;
+    }
     public LoadingLayout setContentView(View view) {
         removeView(contentView);
         this.contentView = view;
@@ -86,7 +86,7 @@ public class LoadingLayout extends FrameLayout {
         return this;
     }
 
-    public RotateLineCircleView getLoadingView() {
+    public IAnimationView getLoadingView() {
         return loadingView;
     }
 }
