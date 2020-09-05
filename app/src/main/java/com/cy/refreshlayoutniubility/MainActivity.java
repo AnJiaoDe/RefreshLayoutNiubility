@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Gravity;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -110,43 +111,37 @@ public class MainActivity extends AppCompatActivity {
         });
 
         final LoadingLayout loadingLayout = findViewById(R.id.loadinglayout);
-        loadingLayout.setOnLoadingCallback(new OnLoadingCallback() {
-            @Override
-            public void onLoadStart() {
-                LogUtils.log("onLoadStart");
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        loadingLayout.stopLoad();
-                    }
-                }, 3000);
-            }
+        loadingLayout.startLoad();
 
+        new Handler().postDelayed(new Runnable() {
             @Override
-            public void onLoadFinish() {
-             LogUtils.log("onLoadFinish");
+            public void run() {
+                loadingLayout.stopLoad(new OnLoadingCallback() {
+                    @Override
+                    public void onLoadFinish() {
+
+                    }
+                });
             }
-        }).startLoad();
+        }, 3000);
 
         final LoadingLayout loadingLayout2 = findViewById(R.id.loadinglayout2);
         loadingLayout2.setLoadingView(new ThreeScaleCircleView(this));
-        loadingLayout2.setOnLoadingCallback(new OnLoadingCallback() {
-            @Override
-            public void onLoadStart() {
-                LogUtils.log("onLoadStart");
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        loadingLayout2.stopLoad();
-                    }
-                }, 3000);
-            }
 
+        loadingLayout2.startLoad();
+        new Handler().postDelayed(new Runnable() {
             @Override
-            public void onLoadFinish() {
-             LogUtils.log("onLoadFinish");
+            public void run() {
+                loadingLayout2.stopLoad(new OnLoadingCallback() {
+                    @Override
+                    public void onLoadFinish() {
+
+                        loadingLayout2.getLoadingView().getView().setVisibility(View.GONE);
+                    }
+                });
             }
-        }).startLoad();
+        }, 3000);
+
 
 //        findViewById(R.id.tv).setOnClickListener(new View.OnClickListener() {
 //            @Override
