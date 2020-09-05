@@ -145,19 +145,21 @@ public class ThreeScaleCircleView extends LinearLayout implements IAnimationView
     }
 
     @Override
-    public void startLoadAnimation() {
+    public <T extends IAnimationView> T startLoadAnimation() {
         //必须先取消原来的动画再开始新的动画，不然会变形
         cancelAllAnimation();
         for (int i = 0; i < animatorSets.length; i++) {
             animatorSets[i].start();
         }
+        return (T) this;
     }
 
     @Override
-    public void stopLoadAnimation() {
+    public <T extends IAnimationView> T stopLoadAnimation() {
         for (int i = 0; i < animatorSets.length; i++) {
             animatorSets[i].cancel();
         }
+        return (T) this;
     }
 
 //    @Override
@@ -165,14 +167,16 @@ public class ThreeScaleCircleView extends LinearLayout implements IAnimationView
 //    }
 
     @Override
-    public void closeLoadAnimation(AnimationViewCallback animationViewCallback) {
+    public <T extends IAnimationView> T closeLoadAnimation(AnimationViewCallback animationViewCallback) {
         stopLoadAnimation();
         animationViewCallback.onLoadClosed();
+        return (T) this;
     }
 
     @Override
-    public void cancelAllAnimation() {
+    public <T extends IAnimationView> T cancelAllAnimation() {
         stopLoadAnimation();
+        return (T) this;
     }
 
     @Override
@@ -185,12 +189,10 @@ public class ThreeScaleCircleView extends LinearLayout implements IAnimationView
 
     @Override
     public void onDraging(int height_current, int height_load, int height_max) {
-
     }
 
     @Override
     public void onDragClosed() {
-
     }
 
     @Override

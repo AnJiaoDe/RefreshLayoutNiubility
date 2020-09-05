@@ -17,20 +17,20 @@ public interface IAnimationView {
     /**
      * 开始load动画
      */
-    public void startLoadAnimation();
+    public <T extends IAnimationView> T startLoadAnimation();
 
     /**
      * 停止load动画
      */
-    public void stopLoadAnimation();
+    public <T extends IAnimationView> T stopLoadAnimation();
 
 
-    public void closeLoadAnimation(AnimationViewCallback animationViewCallback);
+    public <T extends IAnimationView> T closeLoadAnimation(AnimationViewCallback animationViewCallback);
 
     /**
      * 停止所有动画
      */
-    public void cancelAllAnimation();
+    public <T extends IAnimationView> T cancelAllAnimation();
 
     public boolean isRunning();
 

@@ -111,34 +111,23 @@ public class MainActivity extends AppCompatActivity {
         });
 
         final LoadingLayout loadingLayout = findViewById(R.id.loadinglayout);
-        loadingLayout.startLoad();
+        loadingLayout.getLoadingView().startLoadAnimation();
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                loadingLayout.stopLoad(new OnLoadingCallback() {
-                    @Override
-                    public void onLoadFinish() {
-
-                    }
-                });
+                loadingLayout.getLoadingView().stopLoadAnimation().getView().setVisibility(View.GONE);
             }
         }, 3000);
 
         final LoadingLayout loadingLayout2 = findViewById(R.id.loadinglayout2);
         loadingLayout2.setLoadingView(new ThreeScaleCircleView(this));
 
-        loadingLayout2.startLoad();
+        loadingLayout2.getLoadingView().startLoadAnimation();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                loadingLayout2.stopLoad(new OnLoadingCallback() {
-                    @Override
-                    public void onLoadFinish() {
-
-                        loadingLayout2.getLoadingView().getView().setVisibility(View.GONE);
-                    }
-                });
+                loadingLayout2.getLoadingView().stopLoadAnimation();
             }
         }, 3000);
 

@@ -230,7 +230,7 @@ public class RotateLineCircleView extends View implements IAnimationView{
 //    }
 
     @Override
-    public void closeLoadAnimation(final AnimationViewCallback animationViewCallback) {
+    public <T extends IAnimationView> T closeLoadAnimation(final AnimationViewCallback animationViewCallback) {
 //        LogUtils.log("closeLoadAnimation");
         cancelAllAnimation();
         close(new AnimatorListenerAdapter() {
@@ -246,10 +246,11 @@ public class RotateLineCircleView extends View implements IAnimationView{
                 }, 500);
             }
         });
+        return (T) this;
     }
 
     @Override
-    public void startLoadAnimation() {
+    public <T extends IAnimationView> T startLoadAnimation() {
 //        LogUtils.log("startLoadAnimation------------------");
         cancelAllAnimation();
         startAngle_out = 270;
@@ -257,18 +258,21 @@ public class RotateLineCircleView extends View implements IAnimationView{
         startAngle_in = 120;
         sweepAngle_in = 0;
         valueAnimator_load.start();
+        return (T) this;
     }
 
     @Override
-    public void stopLoadAnimation() {
+    public <T extends IAnimationView> T stopLoadAnimation() {
         cancelAllAnimation();
+        return (T) this;
     }
 
 
     @Override
-    public void cancelAllAnimation() {
+    public <T extends IAnimationView> T cancelAllAnimation() {
         valueAnimator_load.cancel();
         valueAnimator_close.cancel();
+        return (T) this;
     }
 
     @Override

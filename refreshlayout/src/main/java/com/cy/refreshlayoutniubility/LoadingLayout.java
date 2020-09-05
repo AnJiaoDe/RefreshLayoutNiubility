@@ -61,25 +61,25 @@ public class LoadingLayout extends FrameLayout {
         return  this;
     }
 
-    public LoadingLayout startLoad(){
-        loadingView.getView().setVisibility(VISIBLE);
-        loadingView.startLoadAnimation();
-        return this;
-    }
-    public LoadingLayout stopLoad(final OnLoadingCallback onLoadingCallback){
-        loadingView.closeLoadAnimation(new AnimationViewCallback() {
-            @Override
-            public void onLoadOpened() {
-
-            }
-
-            @Override
-            public void onLoadClosed() {
-               onLoadingCallback.onLoadFinish();
-            }
-        });
-        return this;
-    }
+//    public LoadingLayout startLoad(){
+//        loadingView.getView().setVisibility(VISIBLE);
+//        loadingView.startLoadAnimation();
+//        return this;
+//    }
+//    public LoadingLayout stopLoad(final OnLoadingCallback onLoadingCallback){
+//        loadingView.closeLoadAnimation(new AnimationViewCallback() {
+//            @Override
+//            public void onLoadOpened() {
+//
+//            }
+//
+//            @Override
+//            public void onLoadClosed() {
+//               onLoadingCallback.onLoadFinish();
+//            }
+//        });
+//        return this;
+//    }
 
     public IAnimationView getLoadingView() {
         return loadingView;
