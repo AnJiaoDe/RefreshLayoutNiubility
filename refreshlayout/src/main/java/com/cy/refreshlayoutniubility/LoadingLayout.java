@@ -25,7 +25,6 @@ import androidx.annotation.Nullable;
 public class LoadingLayout extends FrameLayout {
     private IAnimationView loadingView;
     private View contentView;
-    private OnLoadingCallback onLoadingCallback;
     public LoadingLayout(@NonNull Context context) {
         this(context,null);
     }
@@ -62,17 +61,12 @@ public class LoadingLayout extends FrameLayout {
         return  this;
     }
 
-    public LoadingLayout setOnLoadingCallback(OnLoadingCallback onLoadingCallback) {
-        this.onLoadingCallback = onLoadingCallback;
-        return this;
-    }
     public LoadingLayout startLoad(){
         loadingView.getView().setVisibility(VISIBLE);
         loadingView.startLoadAnimation();
-        onLoadingCallback.onLoadStart();
         return this;
     }
-    public LoadingLayout stopLoad(){
+    public LoadingLayout stopLoad(final OnLoadingCallback onLoadingCallback){
         loadingView.closeLoadAnimation(new AnimationViewCallback() {
             @Override
             public void onLoadOpened() {

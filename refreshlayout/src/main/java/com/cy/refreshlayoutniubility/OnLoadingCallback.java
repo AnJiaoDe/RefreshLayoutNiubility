@@ -10,6 +10,5 @@ package com.cy.refreshlayoutniubility;
  * @Version:
  */
 public interface OnLoadingCallback {
-    public void onLoadStart();
     public void onLoadFinish();
 }
