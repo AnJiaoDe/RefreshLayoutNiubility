@@ -67,6 +67,7 @@ public class LoadingLayout extends FrameLayout {
         return this;
     }
     public LoadingLayout startLoad(){
+        loadingView.getView().setVisibility(VISIBLE);
         loadingView.startLoadAnimation();
         onLoadingCallback.onLoadStart();
         return this;
