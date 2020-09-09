@@ -57,7 +57,7 @@ public class LoadingLayout extends FrameLayout {
     public LoadingLayout setContentView(View view) {
         removeView(contentView);
         this.contentView = view;
-        addView(contentView, 1, new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
+        addView(contentView, getChildCount(), new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
         return  this;
     }
 
