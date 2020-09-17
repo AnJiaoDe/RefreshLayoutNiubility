@@ -32,7 +32,6 @@ public class LoadingLayout extends FrameLayout {
     public LoadingLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         loadingView=new RotateLineCircleView(context);
-        setBackgroundColor(Color.WHITE);
         LayoutParams layoutParams_child = new LayoutParams(ScreenUtils.dpAdapt(context, 30), ScreenUtils.dpAdapt(context, 30));
         layoutParams_child.gravity = Gravity.CENTER;
         addView(loadingView.getView(),layoutParams_child);
