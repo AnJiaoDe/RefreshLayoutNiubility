@@ -27,6 +27,8 @@ import androidx.annotation.Nullable;
 public class LoadingLayout extends FrameLayout {
     private IAnimationView loadingView;
     private View contentView;
+    private LayoutParams layoutParams_loading;
+
     public LoadingLayout(@NonNull Context context) {
         this(context, null);
     }
@@ -34,28 +36,32 @@ public class LoadingLayout extends FrameLayout {
     public LoadingLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         loadingView = new RotateLineCircleView(context);
-        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ScreenUtils.dpAdapt(context, 30), ScreenUtils.dpAdapt(context, 30));
-        layoutParams.gravity=Gravity.CENTER;
-        loadingView.getView().setLayoutParams(layoutParams);
-        addView(loadingView.getView());
+        layoutParams_loading = new LayoutParams(ScreenUtils.dpAdapt(context, 30), ScreenUtils.dpAdapt(context, 30));
+        layoutParams_loading.gravity = Gravity.CENTER;
+        setLoadingView(loadingView,layoutParams_loading);
+
+        contentView=new View(context);
+        setContentView(contentView);
     }
 
     @Override
     protected final void onFinishInflate() {
         super.onFinishInflate();
-        if (getChildCount() > 1)
+        LogUtils.log("getChildCount",getChildCount());
+        if (getChildCount() > 3)
             throw new RuntimeException("Exception:You can add only one contentView in " + getClass().getName());
-        View view = getChildAt(0);
+        View view = getChildAt(2);
         if (view != null) {
-            contentView = view;
+            setLoadingView(loadingView,layoutParams_loading);
+            contentView=view;
+            setContentView(contentView);
         }
     }
 
     public LoadingLayout setLoadingView(IAnimationView animationView, FrameLayout.LayoutParams layoutParams) {
         removeView(loadingView.getView());
         this.loadingView = animationView;
-        loadingView.getView().setLayoutParams(layoutParams);
-        addView(loadingView.getView(),0);
+        addView(loadingView.getView(),0,layoutParams);
         return this;
     }
 
@@ -67,23 +73,30 @@ public class LoadingLayout extends FrameLayout {
     }
 
     public LoadingLayout startLoadAnimation() {
+        contentView.setVisibility(GONE);
+        loadingView.getView().setVisibility(VISIBLE);
         loadingView.startLoadAnimation();
         return this;
     }
 
     public LoadingLayout stopLoadAnimation() {
+        contentView.setVisibility(VISIBLE);
+        loadingView.getView().setVisibility(GONE);
         loadingView.stopLoadAnimation();
         return this;
     }
+
     public LoadingLayout stopLoadAnimation_removeLoadingView() {
-        loadingView.stopLoadAnimation();
+        stopLoadAnimation();
         removeLoadingView();
         return this;
     }
+
     public LoadingLayout removeLoadingView() {
         removeView(loadingView.getView());
         return this;
     }
+
     public IAnimationView getLoadingView() {
         return loadingView;
     }

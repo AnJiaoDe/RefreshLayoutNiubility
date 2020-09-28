@@ -135,15 +135,14 @@ public class MainActivity extends AppCompatActivity {
         }, 3000);
 
         final LoadingLayout loadingLayout2 = findViewById(R.id.loadinglayout2);
-        RelativeLayout.LayoutParams layoutParams=new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+        FrameLayout.LayoutParams layoutParams=new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        layoutParams.gravity=Gravity.CENTER;
         loadingLayout2.setLoadingView(new ThreeScaleCircleView(this),layoutParams);
-
         loadingLayout2.startLoadAnimation();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                loadingLayout2.stopLoadAnimation();
+                loadingLayout2.stopLoadAnimation_removeLoadingView();
             }
         }, 3000);
     }
