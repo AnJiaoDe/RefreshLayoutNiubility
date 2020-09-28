@@ -37,6 +37,7 @@ public class LoadingLayout extends FrameLayout {
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ScreenUtils.dpAdapt(context, 30), ScreenUtils.dpAdapt(context, 30));
         layoutParams.gravity=Gravity.CENTER;
         loadingView.getView().setLayoutParams(layoutParams);
+        addView(loadingView.getView());
     }
 
     @Override
@@ -50,39 +51,39 @@ public class LoadingLayout extends FrameLayout {
         }
     }
 
-    public LoadingLayout setLoadingView(IAnimationView animationView, RelativeLayout.LayoutParams layoutParams) {
+    public LoadingLayout setLoadingView(IAnimationView animationView, FrameLayout.LayoutParams layoutParams) {
+        removeView(loadingView.getView());
         this.loadingView = animationView;
         loadingView.getView().setLayoutParams(layoutParams);
+        addView(loadingView.getView(),0);
         return this;
     }
 
     public LoadingLayout setContentView(View view) {
+        removeView(contentView);
         this.contentView = view;
+        addView(contentView, getChildCount(), new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
         return this;
     }
 
     public LoadingLayout startLoadAnimation() {
-        if(isRunning())return this;
-        removeView(contentView);
-        addView_(loadingView.getView());
         loadingView.startLoadAnimation();
         return this;
     }
 
     public LoadingLayout stopLoadAnimation() {
         loadingView.stopLoadAnimation();
+        return this;
+    }
+    public LoadingLayout stopLoadAnimation_removeLoadingView() {
+        loadingView.stopLoadAnimation();
+        removeLoadingView();
+        return this;
+    }
+    public LoadingLayout removeLoadingView() {
         removeView(loadingView.getView());
-        addView_(contentView);
         return this;
     }
-
-    private LoadingLayout addView_(View view) {
-        ViewGroup viewParent = (ViewGroup) view.getParent();
-        if (viewParent != null) viewParent.removeView(view);
-        addView(view);
-        return this;
-    }
-
     public IAnimationView getLoadingView() {
         return loadingView;
     }
