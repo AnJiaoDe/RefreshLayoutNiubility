@@ -27,7 +27,7 @@ import androidx.annotation.Nullable;
 public class LoadingLayout extends RelativeLayout {
     private IAnimationView loadingView;
     private View contentView;
-    private View showingView;
+
     public LoadingLayout(@NonNull Context context) {
         this(context, null);
     }
@@ -35,7 +35,7 @@ public class LoadingLayout extends RelativeLayout {
     public LoadingLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         loadingView = new RotateLineCircleView(context);
-        RelativeLayout.LayoutParams layoutParams=new RelativeLayout.LayoutParams(ScreenUtils.dpAdapt(context, 30), ScreenUtils.dpAdapt(context, 30));
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ScreenUtils.dpAdapt(context, 30), ScreenUtils.dpAdapt(context, 30));
         layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
         loadingView.getView().setLayoutParams(layoutParams);
     }
@@ -46,13 +46,12 @@ public class LoadingLayout extends RelativeLayout {
         if (getChildCount() > 1)
             throw new RuntimeException("Exception:You can add only one contentView in " + getClass().getName());
         View view = getChildAt(0);
-        if (view != null){
+        if (view != null) {
             contentView = view;
-            showingView=contentView;
         }
     }
 
-    public LoadingLayout setLoadingView(IAnimationView animationView,ViewGroup.LayoutParams layoutParams) {
+    public LoadingLayout setLoadingView(IAnimationView animationView, RelativeLayout.LayoutParams layoutParams) {
         this.loadingView = animationView;
         loadingView.getView().setLayoutParams(layoutParams);
         return this;
@@ -63,30 +62,24 @@ public class LoadingLayout extends RelativeLayout {
         return this;
     }
 
-    public LoadingLayout setShowingView(View view, ViewGroup.LayoutParams layoutParams) {
-        if (view == null) return this;
-        ViewGroup viewParent= (ViewGroup) view.getParent();
-        if(viewParent!=null)viewParent.removeView(view);
-        removeView(showingView);
-        this.showingView = view;
-        addView(showingView, getChildCount(), layoutParams);
-        return this;
-    }
-
-    public LoadingLayout setShowingView(View view) {
-        setShowingView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        return this;
-    }
-
     public LoadingLayout startLoadAnimation() {
-        setShowingView(loadingView.getView(), loadingView.getView().getLayoutParams());
+        removeView(contentView);
+        addView_(loadingView.getView());
         loadingView.startLoadAnimation();
         return this;
     }
 
     public LoadingLayout stopLoadAnimation() {
         loadingView.stopLoadAnimation();
-        setShowingView(contentView);
+        removeView(loadingView.getView());
+        addView_(contentView);
+        return this;
+    }
+
+    private LoadingLayout addView_(View view) {
+        ViewGroup viewParent = (ViewGroup) view.getParent();
+        if (viewParent != null) viewParent.removeView(view);
+        addView(view);
         return this;
     }
 
@@ -96,9 +89,5 @@ public class LoadingLayout extends RelativeLayout {
 
     public View getContentView() {
         return contentView;
-    }
-
-    public View getShowingView() {
-        return showingView;
     }
 }
