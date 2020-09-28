@@ -27,7 +27,6 @@ import androidx.annotation.Nullable;
 public class LoadingLayout extends RelativeLayout {
     private IAnimationView loadingView;
     private View contentView;
-
     public LoadingLayout(@NonNull Context context) {
         this(context, null);
     }
@@ -63,6 +62,7 @@ public class LoadingLayout extends RelativeLayout {
     }
 
     public LoadingLayout startLoadAnimation() {
+        if(isRunning())return this;
         removeView(contentView);
         addView_(loadingView.getView());
         loadingView.startLoadAnimation();
@@ -89,5 +89,9 @@ public class LoadingLayout extends RelativeLayout {
 
     public View getContentView() {
         return contentView;
+    }
+
+    public boolean isRunning() {
+        return loadingView.isRunning();
     }
 }
