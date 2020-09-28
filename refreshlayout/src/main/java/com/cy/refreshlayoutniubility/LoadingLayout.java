@@ -24,7 +24,7 @@ import androidx.annotation.Nullable;
  * @UpdateRemark:
  * @Version:
  */
-public class LoadingLayout extends RelativeLayout {
+public class LoadingLayout extends FrameLayout {
     private IAnimationView loadingView;
     private View contentView;
     public LoadingLayout(@NonNull Context context) {
@@ -34,8 +34,8 @@ public class LoadingLayout extends RelativeLayout {
     public LoadingLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         loadingView = new RotateLineCircleView(context);
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ScreenUtils.dpAdapt(context, 30), ScreenUtils.dpAdapt(context, 30));
-        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ScreenUtils.dpAdapt(context, 30), ScreenUtils.dpAdapt(context, 30));
+        layoutParams.gravity=Gravity.CENTER;
         loadingView.getView().setLayoutParams(layoutParams);
     }
 
