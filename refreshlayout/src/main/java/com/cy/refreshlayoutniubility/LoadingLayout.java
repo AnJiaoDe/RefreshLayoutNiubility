@@ -39,20 +39,16 @@ public class LoadingLayout extends FrameLayout {
         layoutParams_loading = new LayoutParams(ScreenUtils.dpAdapt(context, 30), ScreenUtils.dpAdapt(context, 30));
         layoutParams_loading.gravity = Gravity.CENTER;
         setLoadingView(loadingView,layoutParams_loading);
-
-        contentView=new View(context);
-        setContentView(contentView);
     }
 
     @Override
     protected final void onFinishInflate() {
         super.onFinishInflate();
         LogUtils.log("getChildCount",getChildCount());
-        if (getChildCount() > 3)
+        if (getChildCount() > 2)
             throw new RuntimeException("Exception:You can add only one contentView in " + getClass().getName());
-        View view = getChildAt(2);
+        View view = getChildAt(1);
         if (view != null) {
-            setLoadingView(loadingView,layoutParams_loading);
             contentView=view;
             setContentView(contentView);
         }
@@ -73,6 +69,7 @@ public class LoadingLayout extends FrameLayout {
     }
 
     public LoadingLayout startLoadAnimation() {
+        if(isRunning())return this;
         contentView.setVisibility(GONE);
         loadingView.getView().setVisibility(VISIBLE);
         loadingView.startLoadAnimation();
