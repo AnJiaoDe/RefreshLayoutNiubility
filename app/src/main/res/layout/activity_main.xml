@@ -16,12 +16,26 @@
         <com.cy.refreshlayoutniubility.LoadingLayout
             android:id="@+id/loadinglayout"
             android:layout_width="match_parent"
-            android:layout_height="100dp" />
+            android:layout_height="100dp" >
+            <TextView
+                android:layout_width="match_parent"
+                android:text="点击重试"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:layout_height="match_parent"/>
+        </com.cy.refreshlayoutniubility.LoadingLayout>
 
         <com.cy.refreshlayoutniubility.LoadingLayout
             android:id="@+id/loadinglayout2"
             android:layout_width="match_parent"
-            android:layout_height="100dp" />
+            android:layout_height="100dp" >
+            <TextView
+                android:layout_width="match_parent"
+                android:text="内容"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:layout_height="match_parent"/>
+        </com.cy.refreshlayoutniubility.LoadingLayout>
     </LinearLayout>
 
 </com.cy.refreshlayoutniubility.RefreshLayoutNiubility>

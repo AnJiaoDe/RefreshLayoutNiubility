@@ -9,6 +9,8 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -111,37 +113,38 @@ public class MainActivity extends AppCompatActivity {
         });
 
         final LoadingLayout loadingLayout = findViewById(R.id.loadinglayout);
-        loadingLayout.getLoadingView().startLoadAnimation();
+        loadingLayout.getContentView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadingLayout.startLoadAnimation();
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadingLayout.stopLoadAnimation();
+                    }
+                }, 3000);
+            }
+        });
+        loadingLayout.startLoadAnimation();
 
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                loadingLayout.getLoadingView().stopLoadAnimation().getView().setVisibility(View.GONE);
+                loadingLayout.stopLoadAnimation();
             }
         }, 3000);
 
         final LoadingLayout loadingLayout2 = findViewById(R.id.loadinglayout2);
-        loadingLayout2.setLoadingView(new ThreeScaleCircleView(this));
+        RelativeLayout.LayoutParams layoutParams=new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+        loadingLayout2.setLoadingView(new ThreeScaleCircleView(this),layoutParams);
 
-        loadingLayout2.getLoadingView().startLoadAnimation();
+        loadingLayout2.startLoadAnimation();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                loadingLayout2.getLoadingView().stopLoadAnimation();
+                loadingLayout2.stopLoadAnimation();
             }
         }, 3000);
-
-
-//        findViewById(R.id.tv).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(MainActivity.this,"click",Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
-//        LinearLayout root=findViewById(R.id.baseRefreshLayout);
-//        RefreshLayout refreshLayout=new RefreshLayout(this);
-//        root.addView(refreshLayout,new LinearLayout.LayoutParams(1080,1000));
-
     }
 }

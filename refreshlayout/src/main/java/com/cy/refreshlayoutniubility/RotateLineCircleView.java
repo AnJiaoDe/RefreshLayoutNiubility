@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 
@@ -110,7 +111,6 @@ public class RotateLineCircleView extends View implements IAnimationView{
                 if (sweepAngle_out >= 360&&startAngle_in%360==60) valueAnimator_close.cancel();
             }
         });
-
     }
 
     public Paint getPaint_out() {

@@ -4,11 +4,13 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Animatable2;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,65 +24,81 @@ import androidx.annotation.Nullable;
  * @UpdateRemark:
  * @Version:
  */
-public class LoadingLayout extends FrameLayout {
+public class LoadingLayout extends RelativeLayout {
     private IAnimationView loadingView;
     private View contentView;
+    private View showingView;
     public LoadingLayout(@NonNull Context context) {
-        this(context,null);
+        this(context, null);
     }
 
     public LoadingLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        loadingView=new RotateLineCircleView(context);
-        LayoutParams layoutParams_child = new LayoutParams(ScreenUtils.dpAdapt(context, 30), ScreenUtils.dpAdapt(context, 30));
-        layoutParams_child.gravity = Gravity.CENTER;
-        addView(loadingView.getView(),layoutParams_child);
+        loadingView = new RotateLineCircleView(context);
+        RelativeLayout.LayoutParams layoutParams=new RelativeLayout.LayoutParams(ScreenUtils.dpAdapt(context, 30), ScreenUtils.dpAdapt(context, 30));
+        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+        loadingView.getView().setLayoutParams(layoutParams);
     }
 
     @Override
     protected final void onFinishInflate() {
         super.onFinishInflate();
-        if (getChildCount() > 2)
+        if (getChildCount() > 1)
             throw new RuntimeException("Exception:You can add only one contentView in " + getClass().getName());
-        View view = getChildAt(1);
-        if (view != null)
+        View view = getChildAt(0);
+        if (view != null){
             contentView = view;
+            showingView=contentView;
+        }
     }
 
-    public LoadingLayout setLoadingView(IAnimationView animationView) {
-        removeView(loadingView.getView());
+    public LoadingLayout setLoadingView(IAnimationView animationView,ViewGroup.LayoutParams layoutParams) {
         this.loadingView = animationView;
-        addView(loadingView.getView(), 0);
-        return  this;
-    }
-    public LoadingLayout setContentView(View view) {
-        removeView(contentView);
-        this.contentView = view;
-        addView(contentView, getChildCount(), new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
-        return  this;
+        loadingView.getView().setLayoutParams(layoutParams);
+        return this;
     }
 
-//    public LoadingLayout startLoad(){
-//        loadingView.getView().setVisibility(VISIBLE);
-//        loadingView.startLoadAnimation();
-//        return this;
-//    }
-//    public LoadingLayout stopLoad(final OnLoadingCallback onLoadingCallback){
-//        loadingView.closeLoadAnimation(new AnimationViewCallback() {
-//            @Override
-//            public void onLoadOpened() {
-//
-//            }
-//
-//            @Override
-//            public void onLoadClosed() {
-//               onLoadingCallback.onLoadFinish();
-//            }
-//        });
-//        return this;
-//    }
+    public LoadingLayout setContentView(View view) {
+        this.contentView = view;
+        return this;
+    }
+
+    public LoadingLayout setShowingView(View view, ViewGroup.LayoutParams layoutParams) {
+        if (view == null) return this;
+        ViewGroup viewParent= (ViewGroup) view.getParent();
+        if(viewParent!=null)viewParent.removeView(view);
+        removeView(showingView);
+        this.showingView = view;
+        addView(showingView, getChildCount(), layoutParams);
+        return this;
+    }
+
+    public LoadingLayout setShowingView(View view) {
+        setShowingView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        return this;
+    }
+
+    public LoadingLayout startLoadAnimation() {
+        setShowingView(loadingView.getView(), loadingView.getView().getLayoutParams());
+        loadingView.startLoadAnimation();
+        return this;
+    }
+
+    public LoadingLayout stopLoadAnimation() {
+        loadingView.stopLoadAnimation();
+        setShowingView(contentView);
+        return this;
+    }
 
     public IAnimationView getLoadingView() {
         return loadingView;
+    }
+
+    public View getContentView() {
+        return contentView;
+    }
+
+    public View getShowingView() {
+        return showingView;
     }
 }
