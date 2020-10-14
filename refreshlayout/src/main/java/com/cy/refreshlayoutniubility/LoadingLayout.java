@@ -70,15 +70,11 @@ public class LoadingLayout extends FrameLayout {
 
     public LoadingLayout startLoadAnimation() {
         if(isRunning())return this;
-        contentView.setVisibility(GONE);
-        loadingView.getView().setVisibility(VISIBLE);
         loadingView.startLoadAnimation();
         return this;
     }
 
     public LoadingLayout stopLoadAnimation() {
-        contentView.setVisibility(VISIBLE);
-        loadingView.getView().setVisibility(GONE);
         loadingView.stopLoadAnimation();
         return this;
     }

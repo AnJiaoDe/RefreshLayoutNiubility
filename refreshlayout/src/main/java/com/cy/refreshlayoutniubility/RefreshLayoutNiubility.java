@@ -97,7 +97,7 @@ public class RefreshLayoutNiubility extends LinearLayout {
 
 
     @Override
-    protected final void onFinishInflate() {
+    protected  void onFinishInflate() {
         super.onFinishInflate();
         if (getChildCount() > 4)
             throw new RuntimeException("Exception:You can add only one contentView in " + getClass().getName());
@@ -109,7 +109,7 @@ public class RefreshLayoutNiubility extends LinearLayout {
     }
 
     @Override
-    protected final void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+    protected  void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         headView.getView().measure(widthMeasureSpec,
                 MeasureSpec.makeMeasureSpec(headView.getView().getLayoutParams().height, MeasureSpec.EXACTLY));
@@ -120,7 +120,7 @@ public class RefreshLayoutNiubility extends LinearLayout {
     }
 
     @Override
-    protected final void onLayout(boolean changed, int l, int t, int r, int b) {
+    protected  void onLayout(boolean changed, int l, int t, int r, int b) {
         super.onLayout(changed, l, t, r, b);
         int width_parent = getMeasuredWidth();
         int height_parent = getMeasuredHeight();
@@ -140,7 +140,7 @@ public class RefreshLayoutNiubility extends LinearLayout {
     }
 
 
-    public final <T extends RefreshLayoutNiubility> T setContentView(View view) {
+    public  <T extends RefreshLayoutNiubility> T setContentView(View view) {
         removeView(contentView);
         LayoutParams layoutParams = new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0);
         layoutParams.weight = 1;
@@ -159,7 +159,7 @@ public class RefreshLayoutNiubility extends LinearLayout {
         footView.addCallback(loadMoreCallback);
     }
 
-    public final <T extends RefreshLayoutNiubility> T setHeadView(IHeadView headView) {
+    public  <T extends RefreshLayoutNiubility> T setHeadView(IHeadView headView) {
         removeView(this.headView.getView());
         this.headView = headView;
         addHead();
@@ -167,7 +167,7 @@ public class RefreshLayoutNiubility extends LinearLayout {
 
     }
 
-    public final <T extends RefreshLayoutNiubility> T setFootView(IFootView footView) {
+    public  <T extends RefreshLayoutNiubility> T setFootView(IFootView footView) {
         removeView(this.footView.getView());
         this.footView = footView;
         addFoot();
@@ -231,32 +231,32 @@ public class RefreshLayoutNiubility extends LinearLayout {
     /**
      * --------------------------------------------------------------------------------------
      */
-    public final <T extends RefreshLayoutNiubility> T setEnableRefresh(boolean refresh) {
+    public  <T extends RefreshLayoutNiubility> T setEnableRefresh(boolean refresh) {
         this.enableRefresh = refresh;
         return (T) this;
 
     }
 
-    public final <T extends RefreshLayoutNiubility> T setEnableLoadMore(boolean loadMore) {
+    public  <T extends RefreshLayoutNiubility> T setEnableLoadMore(boolean loadMore) {
         this.enableLoadMore = loadMore;
         return (T) this;
 
     }
 
-    public final boolean enableRefresh() {
+    public  boolean enableRefresh() {
         return enableRefresh;
     }
 
-    public final boolean enableLoadMore() {
+    public  boolean enableLoadMore() {
         return enableLoadMore;
     }
 
-    public final <T extends RefreshLayoutNiubility> T setRefreshColor(int color) {
+    public  <T extends RefreshLayoutNiubility> T setRefreshColor(int color) {
         headView.getAnimationView().setColor(color);
         return (T) this;
     }
 
-    public final <T extends RefreshLayoutNiubility> T setLoadMoreColor(int color) {
+    public  <T extends RefreshLayoutNiubility> T setLoadMoreColor(int color) {
         footView.getAnimationView().setColor(color);
         return (T) this;
     }
