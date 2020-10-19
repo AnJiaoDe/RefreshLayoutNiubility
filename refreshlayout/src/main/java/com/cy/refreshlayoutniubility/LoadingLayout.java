@@ -38,54 +38,63 @@ public class LoadingLayout extends FrameLayout {
         loadingView = new RotateLineCircleView(context);
         layoutParams_loading = new LayoutParams(ScreenUtils.dpAdapt(context, 30), ScreenUtils.dpAdapt(context, 30));
         layoutParams_loading.gravity = Gravity.CENTER;
-        setLoadingView(loadingView,layoutParams_loading);
+//        setLoadingView(loadingView,layoutParams_loading);
     }
 
     @Override
     protected final void onFinishInflate() {
         super.onFinishInflate();
-        LogUtils.log("getChildCount",getChildCount());
-        if (getChildCount() > 2)
+        LogUtils.log("getChildCount", getChildCount());
+        if (getChildCount() > 1)
             throw new RuntimeException("Exception:You can add only one contentView in " + getClass().getName());
-        View view = getChildAt(1);
+        View view = getChildAt(0);
         if (view != null) {
-            contentView=view;
-            setContentView(contentView);
+            contentView = view;
+            removeView(contentView);
+//            setContentView(contentView);
         }
     }
 
     public LoadingLayout setLoadingView(IAnimationView animationView, FrameLayout.LayoutParams layoutParams) {
+        loadingView.stopLoadAnimation();
         removeView(loadingView.getView());
         this.loadingView = animationView;
-        addView(loadingView.getView(),0,layoutParams);
+        this.layoutParams_loading=layoutParams;
+        return this;
+    }
+
+    public LoadingLayout showLoadingView() {
+        removeAllViews();
+        addView(loadingView.getView(), getChildCount(), layoutParams_loading);
+        loadingView.startLoadAnimation();
         return this;
     }
 
     public LoadingLayout setContentView(View view) {
         removeView(contentView);
         this.contentView = view;
+        return this;
+    }
+
+    public LoadingLayout showContentView() {
+        removeAllViews();
         addView(contentView, getChildCount(), new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
         return this;
     }
 
     public LoadingLayout startLoadAnimation() {
-        if(isRunning())return this;
-        loadingView.startLoadAnimation();
+        if (isRunning()) return this;
+        showLoadingView();
         return this;
     }
 
     public LoadingLayout stopLoadAnimation() {
-        loadingView.stopLoadAnimation();
-        return this;
-    }
-
-    public LoadingLayout stopLoadAnimation_removeLoadingView() {
-        stopLoadAnimation();
         removeLoadingView();
         return this;
     }
 
     public LoadingLayout removeLoadingView() {
+        loadingView.stopLoadAnimation();
         removeView(loadingView.getView());
         return this;
     }

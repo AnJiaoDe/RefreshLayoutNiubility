@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        loadingLayout.stopLoadAnimation();
+                        loadingLayout.stopLoadAnimation().showContentView();
                     }
                 }, 3000);
             }
@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                loadingLayout.stopLoadAnimation();
+                loadingLayout.stopLoadAnimation().showContentView();
             }
         }, 3000);
 
@@ -142,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                loadingLayout2.stopLoadAnimation_removeLoadingView();
+                loadingLayout2.stopLoadAnimation().showContentView();
             }
         }, 3000);
     }
