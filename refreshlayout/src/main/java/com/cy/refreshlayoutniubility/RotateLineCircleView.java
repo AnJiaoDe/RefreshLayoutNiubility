@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 /**
@@ -201,7 +202,11 @@ public class RotateLineCircleView extends View implements IAnimationView{
         valueAnimator_close.addListener(animatorListenerAdapter);
         valueAnimator_close.start();
     }
-
+    @Override
+    protected void onVisibilityChanged(@NonNull View changedView, int visibility) {
+        super.onVisibilityChanged(changedView, visibility);
+        if(visibility==GONE||visibility==INVISIBLE)cancelAllAnimation();
+    }
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();

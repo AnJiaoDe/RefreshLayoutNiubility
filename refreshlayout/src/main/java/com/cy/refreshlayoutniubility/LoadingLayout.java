@@ -44,7 +44,6 @@ public class LoadingLayout extends FrameLayout {
     @Override
     protected final void onFinishInflate() {
         super.onFinishInflate();
-        LogUtils.log("getChildCount", getChildCount());
         if (getChildCount() > 1)
             throw new RuntimeException("Exception:You can add only one contentView in " + getClass().getName());
         View view = getChildAt(0);

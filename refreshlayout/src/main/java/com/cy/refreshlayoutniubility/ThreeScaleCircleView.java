@@ -13,6 +13,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.widget.LinearLayout;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public class ThreeScaleCircleView extends LinearLayout implements IAnimationView{
@@ -193,6 +194,12 @@ public class ThreeScaleCircleView extends LinearLayout implements IAnimationView
 
     @Override
     public void onDragClosed() {
+    }
+
+    @Override
+    protected void onVisibilityChanged(@NonNull View changedView, int visibility) {
+        super.onVisibilityChanged(changedView, visibility);
+        if(visibility==GONE||visibility==INVISIBLE)cancelAllAnimation();
     }
 
     @Override
