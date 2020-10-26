@@ -21,4 +21,36 @@ public abstract class OnPullListener {
     public void onLoadMoreCancel() {
     }
 
+    /**
+     * 下拉中
+     */
+    public void onRefreshDragingDown(int distance){}
+
+    /**
+     * 上拉中
+     *
+     * @param distance
+     */
+    public void onRefreshDragingUp(int distance){}
+
+    /**
+     * 拖动松开
+     */
+    public void onRefreshDragRelease(int velocity_y){}
+    /**
+     * 下拉中
+     */
+    public void onLoadMoreDragingDown(int distance){}
+
+    /**
+     * 上拉中
+     *
+     * @param distance
+     */
+    public void onLoadMoreDragingUp(int distance){}
+
+    /**
+     * 拖动松开
+     */
+    public void onLoadMoreDragRelease(int velocity_y){}
 }

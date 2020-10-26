@@ -118,6 +118,7 @@ public class FootViewSimple extends FrameLayout implements IFootView {
         getLayoutParams().height = height;
         requestLayout();
         scrollAnimation();
+        if (callback != null)  callback.onLoadMoreDragingDown(distance);
     }
 
     @Override
@@ -132,10 +133,12 @@ public class FootViewSimple extends FrameLayout implements IFootView {
         getLayoutParams().height = height;
         requestLayout();
         scrollAnimation();
+        if (callback != null)  callback.onLoadMoreDragingUp(distance);
     }
 
     @Override
     public void onDragRelease(int velocity_y) {
+        if (callback != null)  callback.onLoadMoreDragRelease(velocity_y);
         vibrated=false;
         if (-velocity_y > velocity_y_limit || getHeight() >= heightLoadMore) {
             if (!isLoadMoreing) {

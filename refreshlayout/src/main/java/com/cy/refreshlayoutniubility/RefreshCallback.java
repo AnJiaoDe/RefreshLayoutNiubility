@@ -20,4 +20,21 @@ interface RefreshCallback {
     void onRefreshCancel();
 
 //    void onStateChanged(int state);
+    /**
+     * 下拉中
+     */
+    public void onRefreshDragingDown(int distance);
+
+    /**
+     * 上拉中
+     *
+     * @param distance
+     */
+    public void onRefreshDragingUp(int distance);
+
+    /**
+     * 拖动松开
+     */
+    public void onRefreshDragRelease(int velocity_y);
+
 }

@@ -131,6 +131,7 @@ public class HeadViewSimple extends FrameLayout implements IHeadView {
         getLayoutParams().height = height;
         requestLayout();
         animationView.onDraging(height, heightRefresh, heightMax);
+        if (callback != null) callback.onRefreshDragingDown(distance);
     }
 
     @Override
@@ -141,10 +142,12 @@ public class HeadViewSimple extends FrameLayout implements IHeadView {
         getLayoutParams().height = height;
         requestLayout();
         animationView.onDraging(height, heightRefresh, heightMax);
+        if (callback != null) callback.onRefreshDragingUp(distance);
     }
 
     @Override
     public void onDragRelease(int velocity_y) {
+        if (callback != null)  callback.onRefreshDragRelease(velocity_y);
         vibrated=false;
         if (velocity_y > velocity_y_limit || getHeight() >= heightRefresh) {
             if (!isRefreshing) {

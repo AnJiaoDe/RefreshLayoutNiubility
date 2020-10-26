@@ -45,6 +45,20 @@ public class RefreshLayoutNiubility extends LinearLayout {
 
         }
 
+        @Override
+        public void onRefreshDragingDown(int distance) {
+            onPullListener.onRefreshDragingDown(distance);
+        }
+
+        @Override
+        public void onRefreshDragingUp(int distance) {
+            onPullListener.onRefreshDragingUp(distance);
+        }
+
+        @Override
+        public void onRefreshDragRelease(int velocity_y) {
+            onPullListener.onRefreshDragRelease(velocity_y);
+        }
     };
     private LoadMoreCallback loadMoreCallback = new LoadMoreCallback() {
 
@@ -63,6 +77,20 @@ public class RefreshLayoutNiubility extends LinearLayout {
             onPullListener.onLoadMoreCancel();
         }
 
+        @Override
+        public void onLoadMoreDragingDown(int distance) {
+            onPullListener.onLoadMoreDragingDown(distance);
+        }
+
+        @Override
+        public void onLoadMoreDragingUp(int distance) {
+            onPullListener.onLoadMoreDragingUp(distance);
+        }
+
+        @Override
+        public void onLoadMoreDragRelease(int velocity_y) {
+            onPullListener.onLoadMoreDragRelease(velocity_y);
+        }
     };
 
     public RefreshLayoutNiubility(Context context) {
