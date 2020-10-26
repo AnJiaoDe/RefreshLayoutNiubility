@@ -315,12 +315,10 @@ public class RefreshLayoutNiubility extends LinearLayout {
                 //下滑,canScrollVertically(-1)表示可以下滑，canScrollVertically(1)表示可以上滑
                 if ( distanceY > 0 && !contentView.canScrollVertically(-1)) {
                     requestDisallowInterceptTouchEvent();
-                    return true;
                 }
                 //上滑
                 if ( distanceY < 0 && !contentView.canScrollVertically(1)) {
                     requestDisallowInterceptTouchEvent();
-                    return true;
                 }
                 break;
         }
