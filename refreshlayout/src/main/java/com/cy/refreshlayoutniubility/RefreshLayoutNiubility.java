@@ -312,14 +312,14 @@ public class RefreshLayoutNiubility extends LinearLayout {
                     return true;
                 }
                 //下滑,canScrollVertically(-1)表示可以下滑，canScrollVertically(1)表示可以上滑
-                if ( distanceY > 0 && !contentView.canScrollVertically(-1)) {
+                if (enableRefresh && distanceY > 0 && !contentView.canScrollVertically(-1)) {
                     requestDisallowInterceptTouchEvent();
-                    if(enableRefresh)return true;
+                    return true;
                 }
                 //上滑
-                if ( distanceY < 0 && !contentView.canScrollVertically(1)) {
+                if (enableLoadMore && distanceY < 0 && !contentView.canScrollVertically(1)) {
                     requestDisallowInterceptTouchEvent();
-                    if(enableLoadMore)return true;
+                    return true;
                 }
                 break;
         }
