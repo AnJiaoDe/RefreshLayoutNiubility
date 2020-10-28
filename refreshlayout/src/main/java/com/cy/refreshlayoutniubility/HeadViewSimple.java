@@ -12,21 +12,21 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 
 public class HeadViewSimple extends FrameLayout implements IHeadView {
-    private Context context;
-    private IAnimationView animationView;
-    private RefreshCallback callback;
-    private int heightMax;
-    private int heightRefresh;
-    private int velocity_y_limit = 1000;
-    private float y_dragUp_ratio = 1f / 2;
-    private float y_dragDown_ratio = 1f / 2;
+    protected Context context;
+    protected IAnimationView animationView;
+    protected RefreshCallback callback;
+    protected int heightMax;
+    protected int heightRefresh;
+    protected int velocity_y_limit = 1000;
+    protected float y_dragUp_ratio = 1f / 2;
+    protected float y_dragDown_ratio = 1f / 2;
     //    private float height_refresh_ratio ;
-    private int duration_refresh_start = 100;
+    protected int duration_refresh_start = 100;
 
-    private int duration_refresh_finish = 300;
+    protected int duration_refresh_finish = 300;
 
-    private boolean isRefreshing = false;
-    private boolean vibrated=false;
+    protected boolean isRefreshing = false;
+    protected boolean vibrated=false;
     public HeadViewSimple(Context context) {
         super(context);
         this.context = context;
@@ -167,7 +167,7 @@ public class HeadViewSimple extends FrameLayout implements IHeadView {
         }
     }
 
-    private void open(AnimatorListenerAdapter animatorListenerAdapter) {
+    protected void open(AnimatorListenerAdapter animatorListenerAdapter) {
         final int height_head = getHeight();
         ValueAnimator valueAnimator = ValueAnimator.ofInt(0, height_head - heightRefresh);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -187,7 +187,7 @@ public class HeadViewSimple extends FrameLayout implements IHeadView {
         valueAnimator.start();
     }
 
-    private void close(AnimatorListenerAdapter animatorListenerAdapter) {
+    protected void close(AnimatorListenerAdapter animatorListenerAdapter) {
         animationView.stopLoadAnimation();
         final int height_head = getHeight();
         ValueAnimator valueAnimator = ValueAnimator.ofInt(0, height_head);

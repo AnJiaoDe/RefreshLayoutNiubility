@@ -11,18 +11,18 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 
 public class FootViewSimple extends FrameLayout implements IFootView {
-    private Context context;
-    private IAnimationView animationView;
-    private LoadMoreCallback callback;
-    private int heightMax;
-    private int heightLoadMore;
-    private int velocity_y_limit = 1000;
-    private float y_dragUp_ratio = 1f / 2;
-    private float y_dragDown_ratio = 1f / 2;
-    private int duration_loadMore_start = 100;
-    private int duration_loadMore_finish = 300;
-    private boolean isLoadMoreing = false;
-    private boolean vibrated=false;
+    protected Context context;
+    protected IAnimationView animationView;
+    protected LoadMoreCallback callback;
+    protected int heightMax;
+    protected int heightLoadMore;
+    protected int velocity_y_limit = 1000;
+    protected float y_dragUp_ratio = 1f / 2;
+    protected float y_dragDown_ratio = 1f / 2;
+    protected int duration_loadMore_start = 100;
+    protected int duration_loadMore_finish = 300;
+    protected boolean isLoadMoreing = false;
+    protected boolean vibrated=false;
 
     public FootViewSimple(Context context) {
         super(context);
@@ -163,7 +163,7 @@ public class FootViewSimple extends FrameLayout implements IFootView {
         close();
     }
 
-    private void open(AnimatorListenerAdapter animatorListenerAdapter) {
+    protected void open(AnimatorListenerAdapter animatorListenerAdapter) {
         final int height_foot = getHeight();
         ValueAnimator valueAnimator = ValueAnimator.ofInt(0, height_foot - heightLoadMore);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -196,7 +196,7 @@ public class FootViewSimple extends FrameLayout implements IFootView {
         });
     }
 
-    private void close(AnimatorListenerAdapter animatorListenerAdapter) {
+    protected void close(AnimatorListenerAdapter animatorListenerAdapter) {
         final int height_foot = getHeight();
         ValueAnimator valueAnimator = ValueAnimator.ofInt(0, height_foot);
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
