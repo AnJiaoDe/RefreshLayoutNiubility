@@ -4,7 +4,7 @@ package com.cy.refreshlayoutniubility;
  * Created by lcodecore on 2016/10/1.
  */
 
-interface RefreshCallback {
+public interface RefreshCallback {
 
     /**
      * 开始刷新
