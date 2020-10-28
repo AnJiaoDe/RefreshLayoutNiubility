@@ -19,8 +19,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
         final RefreshLayoutNiubility refreshLayout = findViewById(R.id.baseRefreshLayout);
 
+        RotateRingView rotateRingView=new RotateRingView(this);
+        FrameLayout.LayoutParams layoutParams_child = new FrameLayout.LayoutParams(ScreenUtils.dpAdapt(this, 22), ScreenUtils.dpAdapt(this, 22));
+        layoutParams_child.gravity = Gravity.CENTER;
+        rotateRingView.setLayoutParams(layoutParams_child);
+        refreshLayout.getHeadView().setAnimationView(rotateRingView);
         refreshLayout.setOnPullListener(new OnPullListener() {
 
             @Override

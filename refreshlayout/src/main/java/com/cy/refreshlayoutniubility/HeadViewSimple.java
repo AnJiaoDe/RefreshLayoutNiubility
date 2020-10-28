@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.IntEvaluator;
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.Gravity;
 import android.view.ViewConfiguration;
 import android.view.animation.DecelerateInterpolator;
