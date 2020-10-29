@@ -7,5 +7,5 @@ import android.widget.FrameLayout;
  */
 
 public interface LoadMoreFinishListener {
-     void onLoadMoreFinish(FrameLayout footLayout);
+     public void onLoadMoreFinish(FrameLayout footLayout);
 }

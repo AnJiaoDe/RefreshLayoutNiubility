@@ -1,6 +1,7 @@
 package com.cy.refreshlayoutniubility;
 
 import android.content.Context;
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
@@ -44,21 +45,6 @@ public class RefreshLayoutNiubility extends LinearLayout {
             onPullListener.onRefreshCancel();
 
         }
-
-        @Override
-        public void onRefreshDragingDown(int distance) {
-            onPullListener.onRefreshDragingDown(distance);
-        }
-
-        @Override
-        public void onRefreshDragingUp(int distance) {
-            onPullListener.onRefreshDragingUp(distance);
-        }
-
-        @Override
-        public void onRefreshDragRelease(int velocity_y) {
-            onPullListener.onRefreshDragRelease(velocity_y);
-        }
     };
     private LoadMoreCallback loadMoreCallback = new LoadMoreCallback() {
 
@@ -75,21 +61,6 @@ public class RefreshLayoutNiubility extends LinearLayout {
         @Override
         public void onLoadMoreCancel() {
             onPullListener.onLoadMoreCancel();
-        }
-
-        @Override
-        public void onLoadMoreDragingDown(int distance) {
-            onPullListener.onLoadMoreDragingDown(distance);
-        }
-
-        @Override
-        public void onLoadMoreDragingUp(int distance) {
-            onPullListener.onLoadMoreDragingUp(distance);
-        }
-
-        @Override
-        public void onLoadMoreDragRelease(int velocity_y) {
-            onPullListener.onLoadMoreDragRelease(velocity_y);
         }
     };
 
@@ -218,6 +189,14 @@ public class RefreshLayoutNiubility extends LinearLayout {
 
     public void finishRefresh() {
         headView.refreshFinish();
+    }
+    public void finishRefreshDelay(int ms) {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                headView.refreshFinish();
+            }
+        },ms);
     }
 
     public void finishRefresh(RefreshFinishListener refreshFinishListener) {

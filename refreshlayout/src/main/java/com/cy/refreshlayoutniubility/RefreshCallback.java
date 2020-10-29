@@ -18,23 +18,4 @@ public interface RefreshCallback {
      * 正在刷新时向上滑动屏幕，刷新被取消
      */
     void onRefreshCancel();
-
-//    void onStateChanged(int state);
-    /**
-     * 下拉中
-     */
-    public void onRefreshDragingDown(int distance);
-
-    /**
-     * 上拉中
-     *
-     * @param distance
-     */
-    public void onRefreshDragingUp(int distance);
-
-    /**
-     * 拖动松开
-     */
-    public void onRefreshDragRelease(int velocity_y);
-
 }

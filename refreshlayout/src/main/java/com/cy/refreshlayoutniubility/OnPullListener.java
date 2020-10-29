@@ -1,5 +1,11 @@
 package com.cy.refreshlayoutniubility;
 
+import android.os.Handler;
+import android.text.TextUtils;
+import android.widget.TextView;
+
+import com.cy.refresh.R;
+
 public abstract class OnPullListener {
     public abstract void onRefreshStart();
 
@@ -20,37 +26,46 @@ public abstract class OnPullListener {
 
     public void onLoadMoreCancel() {
     }
-
-    /**
-     * 下拉中
-     */
-    public void onRefreshDragingDown(int distance){}
-
-    /**
-     * 上拉中
-     *
-     * @param distance
-     */
-    public void onRefreshDragingUp(int distance){}
-
-    /**
-     * 拖动松开
-     */
-    public void onRefreshDragRelease(int velocity_y){}
-    /**
-     * 下拉中
-     */
-    public void onLoadMoreDragingDown(int distance){}
-
-    /**
-     * 上拉中
-     *
-     * @param distance
-     */
-    public void onLoadMoreDragingUp(int distance){}
-
-    /**
-     * 拖动松开
-     */
-    public void onLoadMoreDragRelease(int velocity_y){}
+//
+//    public int getRefreshFinishLayoutID() {
+//        return R.layout.cy_refresh_finished_default;
+//    }
+//
+////    public TextView setTextViewToast() {
+////        return null;
+////    }
+//
+//    public void setRefreshFinishedText(String text) {
+//
+//    }
+//
+//    /**
+//     * 必须手动调用closeLoadMore()结束loadMore
+//     */
+//    public void closeLoadMore(OnCloseLoadMoreCallback onCloseLoadMoreCallback) {
+//        this.onCloseLoadMoreCallback = onCloseLoadMoreCallback;
+//        if (getLoadMoreAdapter().getItemCount() != 0) getLoadMoreAdapter().set(0, CLEAR);
+//    }
+//
+//    /**
+//     *
+//     */
+//
+//    public void closeLoadMoreNoData() {
+//        String toast = getLoadMoreNoDataToast();
+//        toast = (toast == null || TextUtils.isEmpty(toast)) ? "没有更多了哦~" : toast;
+//        if (getLoadMoreAdapter().getItemCount() != 0) getLoadMoreAdapter().set(0, toast);
+//        new Handler().postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                closeLoadMore(null);
+//            }
+//        }, 1000);
+//    }
+//
+//
+//
+//    public String getLoadMoreNoDataToast() {
+//        return "";
+//    }
 }

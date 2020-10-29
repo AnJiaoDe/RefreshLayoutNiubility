@@ -7,9 +7,14 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewConfiguration;
+import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
+
+import com.cy.refresh.R;
 
 public class HeadViewSimple extends FrameLayout implements IHeadView {
     protected Context context;
@@ -26,7 +31,9 @@ public class HeadViewSimple extends FrameLayout implements IHeadView {
     protected int duration_refresh_finish = 300;
 
     protected boolean isRefreshing = false;
-    protected boolean vibrated=false;
+    protected boolean vibrated = false;
+    protected int finishedLayoutId = R.layout.cy_refresh_finished_default;
+
     public HeadViewSimple(Context context) {
         super(context);
         this.context = context;
@@ -125,14 +132,13 @@ public class HeadViewSimple extends FrameLayout implements IHeadView {
         int value = Math.abs((int) (distance * y_dragDown_ratio));
         int height = getHeight() + value;
         height = height > heightMax ? heightMax : height;
-        if(!vibrated&&height>=heightRefresh){
+        if (!vibrated && height >= heightRefresh) {
             VibratorUtils.startVibrate(context);
-            vibrated=true;
+            vibrated = true;
         }
         getLayoutParams().height = height;
         requestLayout();
         animationView.onDraging(height, heightRefresh, heightMax);
-        if (callback != null) callback.onRefreshDragingDown(distance);
     }
 
     @Override
@@ -143,13 +149,11 @@ public class HeadViewSimple extends FrameLayout implements IHeadView {
         getLayoutParams().height = height;
         requestLayout();
         animationView.onDraging(height, heightRefresh, heightMax);
-        if (callback != null) callback.onRefreshDragingUp(distance);
     }
 
     @Override
     public void onDragRelease(int velocity_y) {
-        if (callback != null)  callback.onRefreshDragRelease(velocity_y);
-        vibrated=false;
+        vibrated = false;
         if (velocity_y > velocity_y_limit || getHeight() >= heightRefresh) {
             if (!isRefreshing) {
                 refreshStart();
@@ -277,7 +281,7 @@ public class HeadViewSimple extends FrameLayout implements IHeadView {
             @Override
             public void onLoadClosed() {
                 if (callback != null) callback.onRefreshFinish();
-                refreshFinishListener.onRefreshFinish(HeadViewSimple.this);
+                refreshFinishListener.onRefreshFinish();
             }
         });
 
