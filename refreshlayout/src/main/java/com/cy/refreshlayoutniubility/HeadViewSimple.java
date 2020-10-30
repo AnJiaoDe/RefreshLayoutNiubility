@@ -5,7 +5,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.IntEvaluator;
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.graphics.Color;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +32,7 @@ public class HeadViewSimple extends FrameLayout implements IHeadView {
     protected boolean isRefreshing = false;
     protected boolean vibrated = false;
     protected int finishedLayoutId = R.layout.cy_refresh_finished_default;
-
+    protected View view_finished_layout;
     public HeadViewSimple(Context context) {
         super(context);
         this.context = context;
@@ -113,7 +112,7 @@ public class HeadViewSimple extends FrameLayout implements IHeadView {
     @Override
     public void refreshCancel() {
         if (callback != null) callback.onRefreshCancel();
-        close();
+        closeRefresh();
     }
 
 
@@ -158,7 +157,7 @@ public class HeadViewSimple extends FrameLayout implements IHeadView {
             if (!isRefreshing) {
                 refreshStart();
             } else {
-                open();
+                openRefresh();
             }
             return;
         }
@@ -167,7 +166,7 @@ public class HeadViewSimple extends FrameLayout implements IHeadView {
                 refreshCancel();
                 return;
             }
-            close();
+            closeRefresh();
         }
     }
 
@@ -213,7 +212,7 @@ public class HeadViewSimple extends FrameLayout implements IHeadView {
     }
 
     @Override
-    public void open() {
+    public void openRefresh() {
         open(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
@@ -226,12 +225,13 @@ public class HeadViewSimple extends FrameLayout implements IHeadView {
     }
 
     @Override
-    public void close() {
+    public void closeRefresh() {
         close(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
                 isRefreshing = false;
+                removeView(view_finished_layout);
                 animationView.onDragClosed();
             }
         });
@@ -240,12 +240,43 @@ public class HeadViewSimple extends FrameLayout implements IHeadView {
 
     @Override
     public void refreshStart() {
-        open();
+        openRefresh();
+    }
+
+//    @Override
+//    public void refreshFinish() {
+////        LogUtils.log("refreshFinish");
+//        animationView.closeLoadAnimation(new AnimationViewCallback() {
+//            @Override
+//            public void onLoadOpened() {
+//
+//            }
+//
+//            @Override
+//            public void onLoadClosed() {
+////                LogUtils.log("onLoadClosed");
+//                close(new AnimatorListenerAdapter() {
+//                    @Override
+//                    public void onAnimationEnd(Animator animation) {
+//                        super.onAnimationEnd(animation);
+//                        isRefreshing = false;
+//                        animationView.onDragClosed();
+//                        if (callback != null) callback.onRefreshFinish();
+//                    }
+//                });
+//
+//            }
+//        });
+
+//    }
+
+    @Override
+    public void setRefreshFinishedLayoutID(int finishedLayoutId) {
+        this.finishedLayoutId = finishedLayoutId;
     }
 
     @Override
-    public void refreshFinish() {
-//        LogUtils.log("refreshFinish");
+    public <T> void refreshFinish(final T msg) {
         animationView.closeLoadAnimation(new AnimationViewCallback() {
             @Override
             public void onLoadOpened() {
@@ -254,34 +285,10 @@ public class HeadViewSimple extends FrameLayout implements IHeadView {
 
             @Override
             public void onLoadClosed() {
-//                LogUtils.log("onLoadClosed");
-                close(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        super.onAnimationEnd(animation);
-                        isRefreshing = false;
-                        animationView.onDragClosed();
-                        if (callback != null) callback.onRefreshFinish();
-                    }
-                });
-
-            }
-        });
-
-    }
-
-    @Override
-    public void refreshFinish(final RefreshFinishListener refreshFinishListener) {
-        animationView.closeLoadAnimation(new AnimationViewCallback() {
-            @Override
-            public void onLoadOpened() {
-
-            }
-
-            @Override
-            public void onLoadClosed() {
+                view_finished_layout=LayoutInflater.from(getContext()).inflate(finishedLayoutId,HeadViewSimple.this,false);
+                addView(view_finished_layout, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
                 if (callback != null) callback.onRefreshFinish();
-                refreshFinishListener.onRefreshFinish();
+                if (callback != null) callback.bindDataToRefreshFinishedLayout(view_finished_layout,msg);
             }
         });
 

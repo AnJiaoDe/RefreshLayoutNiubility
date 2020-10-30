@@ -23,18 +23,30 @@ public class MainActivity extends AppCompatActivity {
 
         final RefreshLayoutNiubility refreshLayout = findViewById(R.id.baseRefreshLayout);
 
-        RotateRingView rotateRingView=new RotateRingView(this);
+        RotateRingView rotateRingView = new RotateRingView(this);
         FrameLayout.LayoutParams layoutParams_child = new FrameLayout.LayoutParams(ScreenUtils.dpAdapt(this, 22), ScreenUtils.dpAdapt(this, 22));
         layoutParams_child.gravity = Gravity.CENTER;
         rotateRingView.setLayoutParams(layoutParams_child);
         refreshLayout.getHeadView().setAnimationView(rotateRingView);
-        refreshLayout.setOnPullListener(new OnPullListener() {
+        refreshLayout.setOnPullListener(new OnPullListener<String>() {
 
             @Override
             public void onRefreshCancel() {
                 super.onRefreshCancel();
                 LogUtils.log("onRefreshCancel");
 
+            }
+
+            @Override
+            public void bindDataToRefreshFinishedLayout(View view, String msg) {
+                TextView textView = view.findViewById(R.id.tv);
+                textView.setText(msg);
+            }
+
+            @Override
+            public int getRefreshFinishedLayoutID() {
+//                return super.getRefreshFinishedLayoutID();
+                return R.layout.refresh_finished;
             }
 
             @Override
@@ -49,29 +61,9 @@ public class MainActivity extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        refreshLayout.finishRefresh(new RefreshFinishListener() {
-                            @Override
-                            public void onRefreshFinish(final FrameLayout headLayout) {
-                                final TextView textView = new TextView(headLayout.getContext());
-                                textView.setGravity(Gravity.CENTER);
-                                textView.setBackgroundColor(Color.WHITE);
-                                textView.setText("有8条更新");
-                                headLayout.addView(textView, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-
-                                new Handler().postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        headLayout.removeView(textView);
-                                        refreshLayout.closeRefresh();
-                                    }
-                                }, 2000);
-                            }
-                        });
-//                        refreshLayout.finishRefresh();
-
+                        refreshLayout.closeRefreshDelay("有8条更新", 2000);
                     }
-                }, 3000);
-
+                },2000);
             }
 
 
@@ -142,9 +134,9 @@ public class MainActivity extends AppCompatActivity {
         }, 3000);
 
         final LoadingLayout loadingLayout2 = findViewById(R.id.loadinglayout2);
-        FrameLayout.LayoutParams layoutParams=new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        layoutParams.gravity=Gravity.CENTER;
-        loadingLayout2.setLoadingView(new ThreeScaleCircleView(this),layoutParams);
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        layoutParams.gravity = Gravity.CENTER;
+        loadingLayout2.setLoadingView(new ThreeScaleCircleView(this), layoutParams);
         loadingLayout2.startLoadAnimation();
         new Handler().postDelayed(new Runnable() {
             @Override

@@ -2,11 +2,13 @@ package com.cy.refreshlayoutniubility;
 
 import android.os.Handler;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.cy.refresh.R;
 
-public abstract class OnPullListener {
+public abstract class OnPullListener<T> {
     public abstract void onRefreshStart();
 
     public void onRefreshFinish() {
@@ -26,10 +28,12 @@ public abstract class OnPullListener {
 
     public void onLoadMoreCancel() {
     }
-//
-//    public int getRefreshFinishLayoutID() {
-//        return R.layout.cy_refresh_finished_default;
-//    }
+
+    public  void bindDataToRefreshFinishedLayout(View view,T msg) {
+    }
+    public int getRefreshFinishedLayoutID() {
+        return R.layout.cy_refresh_finished_default;
+    }
 //
 ////    public TextView setTextViewToast() {
 ////        return null;

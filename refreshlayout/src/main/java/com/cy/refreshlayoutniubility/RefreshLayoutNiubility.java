@@ -45,6 +45,11 @@ public class RefreshLayoutNiubility extends LinearLayout {
             onPullListener.onRefreshCancel();
 
         }
+
+        @Override
+        public <T> void bindDataToRefreshFinishedLayout(View view, T msg) {
+            onPullListener.bindDataToRefreshFinishedLayout(view, msg);
+        }
     };
     private LoadMoreCallback loadMoreCallback = new LoadMoreCallback() {
 
@@ -153,6 +158,7 @@ public class RefreshLayoutNiubility extends LinearLayout {
 
     public void setOnPullListener(OnPullListener onPullListener) {
         this.onPullListener = onPullListener;
+        headView.setRefreshFinishedLayoutID(onPullListener.getRefreshFinishedLayoutID());
         headView.addCallback(refreshCallback);
         footView.addCallback(loadMoreCallback);
     }
@@ -187,29 +193,35 @@ public class RefreshLayoutNiubility extends LinearLayout {
         if (enableRefresh) headView.refreshStart();
     }
 
-    public void finishRefresh() {
-        headView.refreshFinish();
+    public <T> void finishRefresh(T msg) {
+        headView.refreshFinish(msg);
     }
-    public void finishRefreshDelay(int ms) {
+    public <T> void finishRefreshDelay(final T msg,int ms) {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                headView.refreshFinish();
+                headView.refreshFinish(msg);
             }
-        },ms);
+        }, ms);
     }
-
-    public void finishRefresh(RefreshFinishListener refreshFinishListener) {
-        headView.refreshFinish(refreshFinishListener);
+    public void closeRefresh() {
+        headView.closeRefresh();
+    }
+    public <T> void closeRefreshDelay(T msg, int ms) {
+        headView.refreshFinish(msg);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                headView.closeRefresh();
+            }
+        }, ms);
     }
 
     public void openRefresh() {
-        headView.open();
+        headView.openRefresh();
     }
 
-    public void closeRefresh() {
-        headView.close();
-    }
+
 
     /**
      * --------------------------------------------------------------------------------------

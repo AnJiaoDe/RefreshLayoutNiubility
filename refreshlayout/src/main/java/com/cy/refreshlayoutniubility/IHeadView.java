@@ -2,6 +2,10 @@ package com.cy.refreshlayoutniubility;
 
 import android.widget.FrameLayout;
 
+import androidx.annotation.LayoutRes;
+
+import com.cy.refresh.R;
+
 /**
  * Created by lcodecore on 2016/10/1.
  */
@@ -50,12 +54,11 @@ public interface IHeadView {
 
     public void refreshStart();
 
-    public void refreshFinish();
+    public <T>void refreshFinish(T msg);
 
-    public void refreshFinish(RefreshFinishListener refreshFinishListener);
+    public void openRefresh();
 
-    public void open();
+    public void closeRefresh();
 
-    public void close();
-
+    public void setRefreshFinishedLayoutID(@LayoutRes int finishedLayoutId);
 }
