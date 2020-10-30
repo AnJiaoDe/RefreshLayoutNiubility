@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         layoutParams_child.gravity = Gravity.CENTER;
         rotateRingView.setLayoutParams(layoutParams_child);
         refreshLayout.getHeadView().setAnimationView(rotateRingView);
-        refreshLayout.setOnPullListener(new OnPullListener<String>() {
+        refreshLayout.setOnPullListener(new OnSimplePullListener() {
 
             @Override
             public void onRefreshCancel() {
@@ -37,17 +37,17 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
-            @Override
-            public void bindDataToRefreshFinishedLayout(View view, String msg) {
-                TextView textView = view.findViewById(R.id.tv);
-                textView.setText(msg);
-            }
-
-            @Override
-            public int getRefreshFinishedLayoutID() {
-//                return super.getRefreshFinishedLayoutID();
-                return R.layout.refresh_finished;
-            }
+//            @Override
+//            public void bindDataToRefreshFinishedLayout(View view, String msg) {
+//                TextView textView = view.findViewById(R.id.tv);
+//                textView.setText(msg);
+//            }
+//
+//            @Override
+//            public int getRefreshFinishedLayoutID() {
+////                return super.getRefreshFinishedLayoutID();
+//                return R.layout.refresh_finished;
+//            }
 
             @Override
             public void onLoadMoreCancel() {
