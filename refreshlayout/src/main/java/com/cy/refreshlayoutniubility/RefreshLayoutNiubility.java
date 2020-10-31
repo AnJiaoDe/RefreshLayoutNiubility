@@ -31,18 +31,18 @@ public class RefreshLayoutNiubility extends LinearLayout {
 
         @Override
         public void onRefreshStart() {
-            if (onRefreshListener != null) onRefreshListener.onRefreshStart();
+            if (onRefreshListener != null) onRefreshListener.onRefreshStart(headView);
         }
 
         @Override
         public void onRefreshFinish() {
-            if (onRefreshListener != null) onRefreshListener.onRefreshFinish();
+            if (onRefreshListener != null) onRefreshListener.onRefreshFinish(headView);
         }
 
 
         @Override
         public void onRefreshCancel() {
-            if (onRefreshListener != null) onRefreshListener.onRefreshCancel();
+            if (onRefreshListener != null) onRefreshListener.onRefreshCancel(headView);
 
         }
 

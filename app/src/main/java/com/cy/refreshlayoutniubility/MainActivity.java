@@ -28,12 +28,10 @@ public class MainActivity extends AppCompatActivity {
         refreshLayout.getHeadView().setAnimationView(rotateRingView);
         refreshLayout.setOnRefreshListener(new OnRefreshListener<String>() {
 
-            @Override
-            public void onRefreshCancel() {
-                super.onRefreshCancel();
-                LogUtils.log("onRefreshCancel");
-
-            }
+//            @Override
+//            public void onRefreshCancel(IHeadView headView) {
+//                super.onRefreshCancel(headView);
+//            }
 
             @Override
             public void bindDataToRefreshFinishedLayout(View view, String msg) {
@@ -47,9 +45,13 @@ public class MainActivity extends AppCompatActivity {
                 return R.layout.refresh_finished;
             }
 
+//            @Override
+//            public void onRefreshFinish(IHeadView headView) {
+//                super.onRefreshFinish(headView);
+//            }
 
             @Override
-            public void onRefreshStart() {
+            public void onRefreshStart(IHeadView headView) {
                 LogUtils.log("onRefreshStart");
                 new Handler().postDelayed(new Runnable() {
                     @Override
@@ -57,13 +59,6 @@ public class MainActivity extends AppCompatActivity {
                         refreshLayout.closeRefreshDelay("有8条更新", 2000);
                     }
                 },2000);
-            }
-
-
-            @Override
-            public void onRefreshFinish() {
-                super.onRefreshFinish();
-                LogUtils.log("onRefreshFinish");
             }
 
 //            @Override
