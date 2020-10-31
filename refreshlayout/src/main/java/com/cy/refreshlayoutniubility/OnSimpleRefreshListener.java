@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.cy.refresh.R;
 
 
-public abstract class OnSimplePullListener extends OnPullListener<String> {
+public abstract class OnSimpleRefreshListener extends OnRefreshListener<String> {
     @Override
     public void bindDataToRefreshFinishedLayout(View view, String msg) {
         super.bindDataToRefreshFinishedLayout(view, msg);

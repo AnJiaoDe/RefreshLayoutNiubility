@@ -19,55 +19,56 @@ public class RefreshLayoutNiubility extends LinearLayout {
     private Context context;
     private VelocityTracker velocityTracker;
     private int velocity_y;
-    private OnPullListener onPullListener;
+    private OnRefreshListener onRefreshListener;
     private IHeadView headView;
     private View contentView;
-    private IFootView footView;
+    //    private IFootView footView;
     private boolean enableRefresh = true;
-    private boolean enableLoadMore = true;
-    private boolean deal_head_released = true;//防止refresh 和loadMore在一次move事件中同时执行，比如手指下滑不松开，继续上滑
-    private boolean deal_foot_released = true;//防止refresh 和loadMore在一次move事件中同时执行，比如手指下滑不松开，继续上滑
+    //    private boolean enableLoadMore = true;
+//    private boolean deal_head_released = true;//防止refresh 和loadMore在一次move事件中同时执行，比如手指下滑不松开，继续上滑
+//    private boolean deal_foot_released = true;//防止refresh 和loadMore在一次move事件中同时执行，比如手指下滑不松开，继续上滑
     private RefreshCallback refreshCallback = new RefreshCallback() {
 
         @Override
         public void onRefreshStart() {
-            onPullListener.onRefreshStart();
+            if (onRefreshListener != null) onRefreshListener.onRefreshStart();
         }
 
         @Override
         public void onRefreshFinish() {
-            onPullListener.onRefreshFinish();
+            if (onRefreshListener != null) onRefreshListener.onRefreshFinish();
         }
 
 
         @Override
         public void onRefreshCancel() {
-            onPullListener.onRefreshCancel();
+            if (onRefreshListener != null) onRefreshListener.onRefreshCancel();
 
         }
 
         @Override
         public <T> void bindDataToRefreshFinishedLayout(View view, T msg) {
-            onPullListener.bindDataToRefreshFinishedLayout(view, msg);
+            if (onRefreshListener != null)
+                onRefreshListener.bindDataToRefreshFinishedLayout(view, msg);
         }
     };
-    private LoadMoreCallback loadMoreCallback = new LoadMoreCallback() {
-
-        @Override
-        public void onLoadMoreStart() {
-            onPullListener.onLoadMoreStart();
-        }
-
-        @Override
-        public void onLoadMoreFinish() {
-            onPullListener.onLoadMoreFinish();
-        }
-
-        @Override
-        public void onLoadMoreCancel() {
-            onPullListener.onLoadMoreCancel();
-        }
-    };
+//    private LoadMoreCallback loadMoreCallback = new LoadMoreCallback() {
+//
+//        @Override
+//        public void onLoadMoreStart() {
+//            onPullListener.onLoadMoreStart();
+//        }
+//
+//        @Override
+//        public void onLoadMoreFinish() {
+//            onPullListener.onLoadMoreFinish();
+//        }
+//
+//        @Override
+//        public void onLoadMoreCancel() {
+//            onPullListener.onLoadMoreCancel();
+//        }
+//    };
 
     public RefreshLayoutNiubility(Context context) {
         this(context, null);
@@ -81,30 +82,30 @@ public class RefreshLayoutNiubility extends LinearLayout {
         setOrientation(VERTICAL);
         headView = new HeadViewSimple(context);
         contentView = new View(context);
-        footView = new FootViewSimple(context);
-        onPullListener = new OnPullListener() {
-            @Override
-            public void onRefreshStart() {
-
-            }
-
-            @Override
-            public void onLoadMoreStart() {
-
-            }
-        };
+//        footView = new FootViewSimple(context);
+//        onPullListener = new OnPullListener() {
+//            @Override
+//            public void onRefreshStart() {
+//
+//            }
+//
+//            @Override
+//            public void onLoadMoreStart() {
+//
+//            }
+//        };
         addHead();
         setContentView(contentView);
-        addFoot();
+//        addFoot();
     }
 
 
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        if (getChildCount() > 4)
+        if (getChildCount() > 3)
             throw new RuntimeException("Exception:You can add only one contentView in " + getClass().getName());
-        View view = getChildAt(3);
+        View view = getChildAt(2);
         if (view != null) {
             contentView = view;
             setContentView(contentView);
@@ -118,8 +119,8 @@ public class RefreshLayoutNiubility extends LinearLayout {
                 MeasureSpec.makeMeasureSpec(headView.getView().getLayoutParams().height, MeasureSpec.EXACTLY));
         contentView.measure(widthMeasureSpec,
                 MeasureSpec.makeMeasureSpec(getMeasuredHeight(), MeasureSpec.EXACTLY));
-        footView.getView().measure(widthMeasureSpec,
-                MeasureSpec.makeMeasureSpec(footView.getView().getLayoutParams().height, MeasureSpec.EXACTLY));
+//        footView.getView().measure(widthMeasureSpec,
+//                MeasureSpec.makeMeasureSpec(footView.getView().getLayoutParams().height, MeasureSpec.EXACTLY));
     }
 
     @Override
@@ -128,12 +129,11 @@ public class RefreshLayoutNiubility extends LinearLayout {
         int width_parent = getMeasuredWidth();
         int height_parent = getMeasuredHeight();
         int height_head = headView.getView().getLayoutParams().height;
-        int height_foot = footView.getView().getLayoutParams().height;
-
+//        int height_foot = footView.getView().getLayoutParams().height;
         headView.getView().layout(0, 0, width_parent, height_head);
         if (contentView != null)
-            contentView.layout(0, height_head - height_foot, width_parent, height_parent + height_head - height_foot);
-        footView.getView().layout(0, height_parent - height_foot, width_parent, height_parent);
+            contentView.layout(0, height_head , width_parent, height_parent + height_head );
+//        footView.getView().layout(0, height_parent - height_foot, width_parent, height_parent);
     }
 
 
@@ -152,15 +152,15 @@ public class RefreshLayoutNiubility extends LinearLayout {
         return (T) this;
     }
 
-    private void addFoot() {
-        addView(footView.getView(), getChildCount(), new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0));
-    }
+//    private void addFoot() {
+//        addView(footView.getView(), getChildCount(), new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0));
+//    }
 
-    public void setOnPullListener(OnPullListener onPullListener) {
-        this.onPullListener = onPullListener;
-        headView.setRefreshFinishedLayoutID(onPullListener.getRefreshFinishedLayoutID());
+    public void setOnRefreshListener(OnRefreshListener onRefreshListener) {
+        this.onRefreshListener = onRefreshListener;
+        headView.setRefreshFinishedLayoutID(onRefreshListener.getRefreshFinishedLayoutID());
         headView.addCallback(refreshCallback);
-        footView.addCallback(loadMoreCallback);
+//        footView.addCallback(loadMoreCallback);
     }
 
     public <T extends RefreshLayoutNiubility> T setHeadView(IHeadView headView) {
@@ -171,22 +171,22 @@ public class RefreshLayoutNiubility extends LinearLayout {
 
     }
 
-    public <T extends RefreshLayoutNiubility> T setFootView(IFootView footView) {
-        removeView(this.footView.getView());
-        this.footView = footView;
-        addFoot();
-        return (T) this;
-
-    }
+//    public <T extends RefreshLayoutNiubility> T setFootView(IFootView footView) {
+//        removeView(this.footView.getView());
+//        this.footView = footView;
+//        addFoot();
+//        return (T) this;
+//
+//    }
 
 
     public IHeadView getHeadView() {
         return headView;
     }
 
-    public IFootView getFootView() {
-        return footView;
-    }
+//    public IFootView getFootView() {
+//        return footView;
+//    }
 
 
     public void startRefresh() {
@@ -196,7 +196,8 @@ public class RefreshLayoutNiubility extends LinearLayout {
     public <T> void finishRefresh(T msg) {
         headView.refreshFinish(msg);
     }
-    public <T> void finishRefreshDelay(final T msg,int ms) {
+
+    public <T> void finishRefreshDelay(final T msg, int ms) {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -204,9 +205,11 @@ public class RefreshLayoutNiubility extends LinearLayout {
             }
         }, ms);
     }
+
     public void closeRefresh() {
         headView.closeRefresh();
     }
+
     public <T> void closeRefreshDelay(T msg, int ms) {
         headView.refreshFinish(msg);
         new Handler().postDelayed(new Runnable() {
@@ -222,29 +225,28 @@ public class RefreshLayoutNiubility extends LinearLayout {
     }
 
 
-
     /**
      * --------------------------------------------------------------------------------------
      */
-    public void startLoadMore() {
-        if (enableLoadMore) footView.loadMoreStart();
-    }
+//    public void startLoadMore() {
+//        if (enableLoadMore) footView.loadMoreStart();
+//    }
+//
+//    public void finishLoadMore() {
+//        footView.loadMoreFinish();
+//    }
 
-    public void finishLoadMore() {
-        footView.loadMoreFinish();
-    }
+//    public void finishLoadMore(LoadMoreFinishListener loadMoreFinishListener) {
+//        footView.loadMoreFinish(loadMoreFinishListener);
+//    }
 
-    public void finishLoadMore(LoadMoreFinishListener loadMoreFinishListener) {
-        footView.loadMoreFinish(loadMoreFinishListener);
-    }
-
-    public void openLoadMore() {
-        footView.open();
-    }
-
-    public void closeLoadMore() {
-        footView.close();
-    }
+//    public void openLoadMore() {
+//        footView.open();
+//    }
+//
+//    public void closeLoadMore() {
+//        footView.close();
+//    }
 
     /**
      * --------------------------------------------------------------------------------------
@@ -255,29 +257,28 @@ public class RefreshLayoutNiubility extends LinearLayout {
 
     }
 
-    public <T extends RefreshLayoutNiubility> T setEnableLoadMore(boolean loadMore) {
-        this.enableLoadMore = loadMore;
-        return (T) this;
-
-    }
+//    public <T extends RefreshLayoutNiubility> T setEnableLoadMore(boolean loadMore) {
+//        this.enableLoadMore = loadMore;
+//        return (T) this;
+//    }
 
     public boolean enableRefresh() {
         return enableRefresh;
     }
 
-    public boolean enableLoadMore() {
-        return enableLoadMore;
-    }
+//    public boolean enableLoadMore() {
+//        return enableLoadMore;
+//    }
 
     public <T extends RefreshLayoutNiubility> T setRefreshColor(int color) {
         headView.getAnimationView().setColor(color);
         return (T) this;
     }
 
-    public <T extends RefreshLayoutNiubility> T setLoadMoreColor(int color) {
-        footView.getAnimationView().setColor(color);
-        return (T) this;
-    }
+//    public <T extends RefreshLayoutNiubility> T setLoadMoreColor(int color) {
+//        footView.getAnimationView().setColor(color);
+//        return (T) this;
+//    }
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
@@ -298,7 +299,7 @@ public class RefreshLayoutNiubility extends LinearLayout {
                 downX = moveX;
                 downY = moveY;
 
-                if (headView.getView().getHeight() != 0 || footView.getView().getHeight() != 0) {
+                if (headView.getView().getHeight() != 0 ) {
                     requestDisallowInterceptTouchEvent();
                     return true;
                 }
@@ -307,11 +308,11 @@ public class RefreshLayoutNiubility extends LinearLayout {
                     requestDisallowInterceptTouchEvent();
                     return true;
                 }
-                //上滑
-                if (enableLoadMore && distanceY < 0 && !contentView.canScrollVertically(1)) {
-                    requestDisallowInterceptTouchEvent();
-                    return true;
-                }
+//                //上滑
+//                if (enableLoadMore && distanceY < 0 && !contentView.canScrollVertically(1)) {
+//                    requestDisallowInterceptTouchEvent();
+//                    return true;
+//                }
                 break;
         }
         return false;
@@ -337,38 +338,37 @@ public class RefreshLayoutNiubility extends LinearLayout {
                 downY = moveY;
                 //下滑
                 if (distanceY > 0) {
-                    //说明上次滑动的是footView
-                    if (footView.getView().getHeight() != 0) {
-                        deal_foot_released = false;
-                        footView.onDragingDown(distanceY);
-                        break;
-                    }
-                    if (enableRefresh && deal_foot_released) {
+//                    //说明上次滑动的是footView
+//                    if (footView.getView().getHeight() != 0) {
+//                        deal_foot_released = false;
+//                        footView.onDragingDown(distanceY);
+//                        break;
+//                    }
+                    if (enableRefresh)
                         headView.onDragingDown(distanceY);
-                    }
                     break;
                 }
                 //上滑
                 if (distanceY < 0) {
                     //说明上次滑动的是headView
                     if (headView.getView().getHeight() != 0) {
-                        deal_head_released = false;
+//                        deal_head_released = false;
                         headView.onDragingUp(distanceY);
                         break;
                     }
-                    if (enableLoadMore && deal_head_released) {
-                        footView.onDragingUp(distanceY);
-                    }
+//                    if (enableLoadMore && deal_head_released) {
+//                        footView.onDragingUp(distanceY);
+//                    }
                     break;
                 }
                 break;
             case MotionEvent.ACTION_UP:
-                deal_head_released = true;
-                deal_foot_released = true;
+//                deal_head_released = true;
+//                deal_foot_released = true;
                 velocityTracker.computeCurrentVelocity(1000);
                 velocity_y = (int) velocityTracker.getYVelocity();
                 if (headView.getView().getHeight() != 0) headView.onDragRelease(velocity_y);
-                if (footView.getView().getHeight() != 0) footView.onDragRelease(velocity_y);
+//                if (footView.getView().getHeight() != 0) footView.onDragRelease(velocity_y);
                 if (velocityTracker != null) {
                     velocityTracker.recycle();
                     velocityTracker = null;

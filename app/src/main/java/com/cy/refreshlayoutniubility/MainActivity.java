@@ -9,8 +9,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         layoutParams_child.gravity = Gravity.CENTER;
         rotateRingView.setLayoutParams(layoutParams_child);
         refreshLayout.getHeadView().setAnimationView(rotateRingView);
-        refreshLayout.setOnPullListener(new OnSimplePullListener() {
+        refreshLayout.setOnRefreshListener(new OnRefreshListener<String>() {
 
             @Override
             public void onRefreshCancel() {
@@ -37,23 +35,18 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
-//            @Override
-//            public void bindDataToRefreshFinishedLayout(View view, String msg) {
-//                TextView textView = view.findViewById(R.id.tv);
-//                textView.setText(msg);
-//            }
-//
-//            @Override
-//            public int getRefreshFinishedLayoutID() {
-////                return super.getRefreshFinishedLayoutID();
-//                return R.layout.refresh_finished;
-//            }
+            @Override
+            public void bindDataToRefreshFinishedLayout(View view, String msg) {
+                TextView textView = view.findViewById(R.id.tv);
+                textView.setText(msg);
+            }
 
             @Override
-            public void onLoadMoreCancel() {
-                super.onLoadMoreCancel();
-                LogUtils.log("onLoadMoreCancel");
+            public int getRefreshFinishedLayoutID() {
+//                return super.getRefreshFinishedLayoutID();
+                return R.layout.refresh_finished;
             }
+
 
             @Override
             public void onRefreshStart() {
@@ -73,42 +66,37 @@ public class MainActivity extends AppCompatActivity {
                 LogUtils.log("onRefreshFinish");
             }
 
-            @Override
-            public void onLoadMoreStart() {
-                LogUtils.log("onLoadMoreStart");
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        refreshLayout.finishLoadMore(new LoadMoreFinishListener() {
-                            @Override
-                            public void onLoadMoreFinish(final FrameLayout footLayout) {
-                                final TextView textView = new TextView(footLayout.getContext());
-                                textView.setGravity(Gravity.CENTER);
-                                textView.setBackgroundColor(Color.WHITE);
-                                textView.setTextColor(Color.RED);
-                                textView.setText("有8条更新");
-                                footLayout.addView(textView, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+//            @Override
+//            public void onLoadMoreStart() {
+//                LogUtils.log("onLoadMoreStart");
+//                new Handler().postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        refreshLayout.finishLoadMore(new LoadMoreFinishListener() {
+//                            @Override
+//                            public void onLoadMoreFinish(final FrameLayout footLayout) {
+//                                final TextView textView = new TextView(footLayout.getContext());
+//                                textView.setGravity(Gravity.CENTER);
+//                                textView.setBackgroundColor(Color.WHITE);
+//                                textView.setTextColor(Color.RED);
+//                                textView.setText("有8条更新");
+//                                footLayout.addView(textView, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+//
+//                                new Handler().postDelayed(new Runnable() {
+//                                    @Override
+//                                    public void run() {
+//                                        footLayout.removeView(textView);
+//                                        refreshLayout.closeLoadMore();
+//                                    }
+//                                }, 2000);
+//                            }
+//
+//                        });
+////                        refreshLayout.finishLoadMore();
+//                    }
+//                }, 3000);
+//            }
 
-                                new Handler().postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        footLayout.removeView(textView);
-                                        refreshLayout.closeLoadMore();
-                                    }
-                                }, 2000);
-                            }
-
-                        });
-//                        refreshLayout.finishLoadMore();
-                    }
-                }, 3000);
-            }
-
-            @Override
-            public void onLoadMoreFinish() {
-                super.onLoadMoreFinish();
-                LogUtils.log("onLoadMoreFinish");
-            }
         });
 
         final LoadingLayout loadingLayout = findViewById(R.id.loadinglayout);
