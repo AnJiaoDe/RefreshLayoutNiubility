@@ -26,7 +26,7 @@ public interface IHeadView {
 
     public IAnimationView getAnimationView();
 
-    public void addCallback(RefreshCallback callback);
+    public void setCallback(RefreshCallback callback);
 
     /**
      * 下拉中

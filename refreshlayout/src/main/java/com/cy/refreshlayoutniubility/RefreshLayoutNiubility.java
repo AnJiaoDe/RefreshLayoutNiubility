@@ -159,7 +159,7 @@ public class RefreshLayoutNiubility extends LinearLayout {
     public void setOnRefreshListener(OnRefreshListener onRefreshListener) {
         this.onRefreshListener = onRefreshListener;
         headView.setRefreshFinishedLayoutID(onRefreshListener.getRefreshFinishedLayoutID());
-        headView.addCallback(refreshCallback);
+        headView.setCallback(refreshCallback);
 //        footView.addCallback(loadMoreCallback);
     }
 

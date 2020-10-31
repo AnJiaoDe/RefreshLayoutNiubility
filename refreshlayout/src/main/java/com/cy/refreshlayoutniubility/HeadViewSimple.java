@@ -117,7 +117,7 @@ public class HeadViewSimple extends FrameLayout implements IHeadView {
 
 
     @Override
-    public void addCallback(RefreshCallback callback) {
+    public void setCallback(RefreshCallback callback) {
         this.callback = callback;
     }
 
