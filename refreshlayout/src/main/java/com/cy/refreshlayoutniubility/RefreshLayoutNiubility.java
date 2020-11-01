@@ -217,7 +217,7 @@ public class RefreshLayoutNiubility extends LinearLayout {
             public void run() {
                 headView.closeRefresh();
             }
-        }, ms);
+        }, ms+1000);
     }
 
     public <T> void closeRefreshDelay(T msg) {
