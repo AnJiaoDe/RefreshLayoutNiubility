@@ -243,32 +243,32 @@ public class HeadViewSimple extends FrameLayout implements IHeadView {
         openRefresh();
     }
 
-//    @Override
-//    public void refreshFinish() {
-////        LogUtils.log("refreshFinish");
-//        animationView.closeLoadAnimation(new AnimationViewCallback() {
-//            @Override
-//            public void onLoadOpened() {
-//
-//            }
-//
-//            @Override
-//            public void onLoadClosed() {
-////                LogUtils.log("onLoadClosed");
-//                close(new AnimatorListenerAdapter() {
-//                    @Override
-//                    public void onAnimationEnd(Animator animation) {
-//                        super.onAnimationEnd(animation);
-//                        isRefreshing = false;
-//                        animationView.onDragClosed();
-//                        if (callback != null) callback.onRefreshFinish();
-//                    }
-//                });
-//
-//            }
-//        });
+    @Override
+    public void refreshFinish() {
+//        LogUtils.log("refreshFinish");
+        animationView.closeLoadAnimation(new AnimationViewCallback() {
+            @Override
+            public void onLoadOpened() {
 
-//    }
+            }
+
+            @Override
+            public void onLoadClosed() {
+//                LogUtils.log("onLoadClosed");
+                close(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                        isRefreshing = false;
+                        animationView.onDragClosed();
+                        if (callback != null) callback.onRefreshFinish();
+                    }
+                });
+
+            }
+        });
+
+    }
 
     @Override
     public void setRefreshFinishedLayoutID(int finishedLayoutId) {

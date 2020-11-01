@@ -193,6 +193,9 @@ public class RefreshLayoutNiubility extends LinearLayout {
         if (enableRefresh) headView.refreshStart();
     }
 
+    public void finishRefresh() {
+        headView.refreshFinish();
+    }
     public <T> void finishRefresh(T msg) {
         headView.refreshFinish(msg);
     }

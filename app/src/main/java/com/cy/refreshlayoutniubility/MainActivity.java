@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         refreshLayout.closeRefreshDelay("有8条更新");
+//                        refreshLayout.finishRefresh();
                     }
                 },2000);
             }

@@ -54,7 +54,9 @@ public interface IHeadView {
 
     public void refreshStart();
 
-    public <T>void refreshFinish(T msg);
+    public <T> void refreshFinish(T msg);
+
+    public void refreshFinish();
 
     public void openRefresh();
 
