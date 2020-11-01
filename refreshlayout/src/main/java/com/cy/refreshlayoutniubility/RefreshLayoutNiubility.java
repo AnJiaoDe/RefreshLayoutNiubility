@@ -212,6 +212,7 @@ public class RefreshLayoutNiubility extends LinearLayout {
 
     public <T> void closeRefreshDelay(T msg, int ms) {
         headView.refreshFinish(msg);
+        //因为refreshFinish是耗时的，所以，时间+1S
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
