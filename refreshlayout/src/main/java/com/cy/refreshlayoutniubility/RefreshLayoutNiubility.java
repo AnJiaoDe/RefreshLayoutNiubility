@@ -132,7 +132,7 @@ public class RefreshLayoutNiubility extends LinearLayout {
 //        int height_foot = footView.getView().getLayoutParams().height;
         headView.getView().layout(0, 0, width_parent, height_head);
         if (contentView != null)
-            contentView.layout(0, height_head , width_parent, height_parent + height_head );
+            contentView.layout(0, height_head, width_parent, height_parent + height_head);
 //        footView.getView().layout(0, height_parent - height_foot, width_parent, height_parent);
     }
 
@@ -220,6 +220,10 @@ public class RefreshLayoutNiubility extends LinearLayout {
         }, ms);
     }
 
+    public <T> void closeRefreshDelay(T msg) {
+        closeRefreshDelay(msg, 1000);
+    }
+
     public void openRefresh() {
         headView.openRefresh();
     }
@@ -299,7 +303,7 @@ public class RefreshLayoutNiubility extends LinearLayout {
                 downX = moveX;
                 downY = moveY;
 
-                if (headView.getView().getHeight() != 0 ) {
+                if (headView.getView().getHeight() != 0) {
                     requestDisallowInterceptTouchEvent();
                     return true;
                 }

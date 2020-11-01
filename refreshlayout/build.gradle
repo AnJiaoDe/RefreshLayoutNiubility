@@ -10,7 +10,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.8"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
@@ -22,7 +22,20 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
+    //release版本输出包名自动追加版本号和版本名称
+    libraryVariants.all {
+        variant ->
+            variant.outputs.all {
+                //只处理生产版本
+                if (buildType.name == 'release') {
+                    def createTime = new Date().format("YYYY_MM_dd_hh_mm_ss", TimeZone.getTimeZone("GMT+24:00"))
+                    // app包名称
+                    outputFileName = "../../../../zzz_Release/RefreshlayoutNiubility" + "_V" + defaultConfig.versionName+ ".aar"
+                    ////指定release输出到指定文件夹
+//                    variant.getPackageApplication().outputDirectory = new File(config.appReleaseDir + "/${createTime}")
+                }
+            }
+    }
 }
 
 dependencies {
