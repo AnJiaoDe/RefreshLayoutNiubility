@@ -34,8 +34,6 @@ public interface IAnimationView {
 
     public boolean isRunning();
 
-//    public boolean isCalledStop();
-
     public void onDraging(int height_current, int height_load, int height_max);
 
     public void onDragClosed();

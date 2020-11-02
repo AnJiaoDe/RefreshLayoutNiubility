@@ -195,11 +195,11 @@ public class ThreeScaleCircleView extends LinearLayout implements IAnimationView
     public void onDragClosed() {
     }
 
-    @Override
-    protected void onVisibilityChanged(@NonNull View changedView, int visibility) {
-        super.onVisibilityChanged(changedView, visibility);
-        if(visibility==GONE||visibility==INVISIBLE)cancelAllAnimation();
-    }
+//    @Override
+//    protected void onVisibilityChanged(@NonNull View changedView, int visibility) {
+//        super.onVisibilityChanged(changedView, visibility);
+//        if(visibility==GONE||visibility==INVISIBLE)cancelAllAnimation();
+//    }
 
     @Override
     protected void onDetachedFromWindow() {

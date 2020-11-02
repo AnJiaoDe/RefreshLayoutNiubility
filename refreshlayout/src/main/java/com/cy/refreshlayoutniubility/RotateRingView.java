@@ -26,7 +26,7 @@ import androidx.annotation.Nullable;
  * @UpdateRemark:
  * @Version:
  */
-public class RotateRingView extends View implements IAnimationView{
+public class RotateRingView extends View implements IAnimationView {
     private Paint paint_bg;
     private Paint paint_rotate;
     private Context context;
@@ -36,6 +36,7 @@ public class RotateRingView extends View implements IAnimationView{
     private ValueAnimator valueAnimator_close;
     private int color_bg = 0xffeeeeee;
     private int color_rotate = 0xff0081ff;
+
     public RotateRingView(Context context) {
         this(context, null);
     }
@@ -57,7 +58,6 @@ public class RotateRingView extends View implements IAnimationView{
         paint_rotate.setAntiAlias(true);
         paint_rotate.setStrokeWidth(dpAdapt(3));
         paint_rotate.setStrokeCap(Paint.Cap.ROUND);
-
 
 
         valueAnimator_load = ValueAnimator.ofInt(110, 90, 70, 50, 30, 50, 70, 110);
@@ -93,6 +93,7 @@ public class RotateRingView extends View implements IAnimationView{
     public Paint getPaint_bg() {
         return paint_bg;
     }
+
     public Paint getPaint_rotate() {
         return paint_rotate;
     }
@@ -152,12 +153,17 @@ public class RotateRingView extends View implements IAnimationView{
         valueAnimator_close.addListener(animatorListenerAdapter);
         valueAnimator_close.start();
     }
-    @Override
-    protected void onVisibilityChanged(@NonNull View changedView, int visibility) {
-        super.onVisibilityChanged(changedView, visibility);
-        if(visibility==GONE||visibility==INVISIBLE)cancelAllAnimation();
-    }
 
+    //    @Override
+//    protected void onVisibilityChanged(@NonNull View changedView, int visibility) {
+//        super.onVisibilityChanged(changedView, visibility);
+//        if(visibility==GONE||visibility==INVISIBLE)cancelAllAnimation();
+//    }
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        cancelAllAnimation();
+    }
 
     /**
      * --------------------------------------------------------------------------
@@ -173,6 +179,7 @@ public class RotateRingView extends View implements IAnimationView{
             return true;
         return false;
     }
+
     @Override
     public <T extends IAnimationView> T closeLoadAnimation(final AnimationViewCallback animationViewCallback) {
         cancelAllAnimation();
@@ -216,7 +223,7 @@ public class RotateRingView extends View implements IAnimationView{
 
     @Override
     public void onDraging(int height_current, int height_load, int height_max) {
-        sweepAngle_rotate = Math.min(360,(int) (360 * height_current * 1f / height_load));
+        sweepAngle_rotate = Math.min(360, (int) (360 * height_current * 1f / height_load));
         invalidate();
     }
 
@@ -224,6 +231,12 @@ public class RotateRingView extends View implements IAnimationView{
     @Override
     public void onDragClosed() {
         restoreParams();
+    }
+
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        startLoadAnimation();
     }
 
     /**

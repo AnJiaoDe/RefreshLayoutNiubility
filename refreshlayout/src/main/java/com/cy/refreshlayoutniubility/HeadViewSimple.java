@@ -270,6 +270,7 @@ public class HeadViewSimple extends FrameLayout implements IHeadView {
 
     }
 
+
     @Override
     public void setRefreshFinishedLayoutID(int finishedLayoutId) {
         this.finishedLayoutId = finishedLayoutId;
