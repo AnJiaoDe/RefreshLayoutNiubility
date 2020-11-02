@@ -39,7 +39,7 @@ public class RotateLineCircleView extends View implements IAnimationView{
     //    private ValueAnimator valueAnimator_open;
     private ValueAnimator valueAnimator_close;
     private int color = 0xff2a83fc;
-
+//    private boolean isCalledStop=false;
     public RotateLineCircleView(Context context) {
         this(context, null);
     }
@@ -207,11 +207,18 @@ public class RotateLineCircleView extends View implements IAnimationView{
         super.onVisibilityChanged(changedView, visibility);
         if(visibility==GONE||visibility==INVISIBLE)cancelAllAnimation();
     }
-    @Override
-    protected void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-        cancelAllAnimation();
-    }
+
+//    @Override
+//    protected void onAttachedToWindow() {
+//        super.onAttachedToWindow();
+//        if(!isCalledStop)startLoadAnimation();
+//    }
+//
+//    @Override
+//    protected void onDetachedFromWindow() {
+//        super.onDetachedFromWindow();
+//        cancelAllAnimation();
+//    }
 
     /**
      * --------------------------------------------------------------------------
@@ -228,6 +235,10 @@ public class RotateLineCircleView extends View implements IAnimationView{
         return false;
     }
 
+//    @Override
+//    public boolean isCalledStop() {
+//        return isCalledStop;
+//    }
 //    @Override
 //    public void openLoadAnimation(AnimationViewCallback animationViewCallback) {
 ////        cancelAllAnimation();

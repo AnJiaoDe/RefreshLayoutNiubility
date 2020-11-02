@@ -24,7 +24,6 @@ public class ThreeScaleCircleView extends LinearLayout implements IAnimationView
     private int radius_max = 6;
     private int radius_min = 2;
     private int width, height;
-
     public ThreeScaleCircleView(Context context) {
         this(context,null);
     }
