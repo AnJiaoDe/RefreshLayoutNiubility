@@ -63,6 +63,7 @@ public class LoadingLayout extends FrameLayout {
 
     public LoadingLayout showLoadingView() {
         removeAllViews();
+        loadingView.getView().setVisibility(VISIBLE);
         addView(loadingView.getView(), getChildCount(), layoutParams_loading);
         loadingView.startLoadAnimation();
         return this;
@@ -76,6 +77,7 @@ public class LoadingLayout extends FrameLayout {
 
     public LoadingLayout showContentView() {
         removeAllViews();
+        contentView.setVisibility(VISIBLE);
         addView(contentView, getChildCount(), new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT));
         return this;
     }
