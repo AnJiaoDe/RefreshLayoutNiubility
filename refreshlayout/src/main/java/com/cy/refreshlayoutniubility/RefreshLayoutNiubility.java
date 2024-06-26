@@ -328,7 +328,7 @@ public class RefreshLayoutNiubility extends LinearLayout {
 
 
     /**
-     * 神奇之处，touch分发到了textView，但没有分发到button,因为触摸事件被button消费了，button默认有点击波纹效果
+     *
      *
      * @return
      */

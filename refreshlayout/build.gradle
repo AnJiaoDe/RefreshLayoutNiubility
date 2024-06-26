@@ -1,46 +1,26 @@
 apply plugin: 'com.android.library'
+
 apply plugin: 'com.github.dcendents.android-maven'
 
-group='com.github.AnJiaoDe'
+group = 'com.github.AnJiaoDe'
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdkVersion var.compileSdkVersion
 
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 29
+        minSdkVersion var.minSdkVersion
+        targetSdkVersion var.targetSdkVersion
         versionCode 1
-        versionName "1.0.8"
+        versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles 'consumer-rules.pro'
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
     }
-
     buildTypes {
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    //release版本输出包名自动追加版本号和版本名称
-    libraryVariants.all {
-        variant ->
-            variant.outputs.all {
-                //只处理生产版本
-                if (buildType.name == 'release') {
-                    def createTime = new Date().format("YYYY_MM_dd_hh_mm_ss", TimeZone.getTimeZone("GMT+24:00"))
-                    // app包名称
-                    outputFileName = "../../../../zzz_Release/RefreshlayoutNiubility" + "_V" + defaultConfig.versionName+ ".aar"
-                    ////指定release输出到指定文件夹
-//                    variant.getPackageApplication().outputDirectory = new File(config.appReleaseDir + "/${createTime}")
-                }
-            }
-    }
-}
-
-dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    compileOnly 'androidx.appcompat:appcompat:+'
 }
 //---------------------------------------------下面的必加,加上下面的作用是在上传后会带上注释,不然会发现没有注释
 // 打包源码
@@ -50,4 +30,8 @@ task sourcesJar(type: Jar) {
 }
 artifacts {
     archives sourcesJar
+}
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    compileOnly 'androidx.appcompat:appcompat:1.1.0'
 }

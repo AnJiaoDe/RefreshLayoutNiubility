@@ -13,19 +13,19 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.widget.LinearLayout;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-public class ThreeScaleCircleView extends LinearLayout implements IAnimationView{
-    private Paint paint;
+public class ThreeScaleCircleView extends LinearLayout implements IAnimationView {
+    //    private Paint paint;
     private AnimatorSet[] animatorSets;
     private CircleView[] circleViews;
     private int space = 16;
     private int radius_max = 6;
     private int radius_min = 2;
     private int width, height;
+
     public ThreeScaleCircleView(Context context) {
-        this(context,null);
+        this(context, null);
     }
 
     public ThreeScaleCircleView(Context context, @Nullable AttributeSet attrs) {
@@ -34,23 +34,22 @@ public class ThreeScaleCircleView extends LinearLayout implements IAnimationView
         setGravity(Gravity.CENTER);
 
 
-        space=ScreenUtils.dpAdapt(context,space);
-        radius_max=ScreenUtils.dpAdapt(context,radius_max);
-        radius_min=ScreenUtils.dpAdapt(context,radius_min);
+        space = ScreenUtils.dpAdapt(context, space);
+        radius_max = ScreenUtils.dpAdapt(context, radius_max);
+        radius_min = ScreenUtils.dpAdapt(context, radius_min);
 
         animatorSets = new AnimatorSet[3];
         circleViews = new CircleView[3];
-        paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-
-        paint.setColor(Color.RED);
+//        paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+//        paint.setColor(Color.RED);
 
         for (int i = 0; i < circleViews.length; i++) {
             final CircleView circleView = new CircleView(context);
             circleViews[i] = circleView;
             float scale_start = 1f;
             float scale_end = radius_max * 1f / radius_min;
-            float alpha_start=1f;
-            float alpah_end=0.4f;
+            float alpha_start = 1f;
+            float alpah_end = 0.4f;
             switch (i) {
                 case 0:
                     circleView.setRadius(radius_min);
@@ -58,13 +57,13 @@ public class ThreeScaleCircleView extends LinearLayout implements IAnimationView
                 case 1:
                     circleView.setRadius(radius_max);
                     scale_end = radius_min * 1f / radius_max;
-                    alpha_start=0.2f;
-                    alpah_end=1f;
+                    alpha_start = 0.2f;
+                    alpah_end = 1f;
                     break;
                 case 2:
-                    circleView.setRadius(radius_max*3f/4);
-                    scale_end=1f/4;
-                    alpha_start=0.6f;
+                    circleView.setRadius(radius_max * 3f / 4);
+                    scale_end = 1f / 4;
+                    alpha_start = 0.6f;
                     break;
             }
             final ObjectAnimator objectAnimator_scaleX = ObjectAnimator.ofFloat(circleView, "scaleX", scale_start, scale_end, scale_start);
@@ -73,12 +72,12 @@ public class ThreeScaleCircleView extends LinearLayout implements IAnimationView
             final ObjectAnimator objectAnimator_scaleY = ObjectAnimator.ofFloat(circleView, "scaleY", scale_start, scale_end, scale_start);
             objectAnimator_scaleY.setRepeatCount(Animation.INFINITE);
 
-            final ObjectAnimator objectAnimator_alpha = ObjectAnimator.ofFloat(circleView, "alpha", alpha_start,alpah_end,alpha_start);
+            final ObjectAnimator objectAnimator_alpha = ObjectAnimator.ofFloat(circleView, "alpha", alpha_start, alpah_end, alpha_start);
             objectAnimator_alpha.setRepeatCount(Animation.INFINITE);
 
             AnimatorSet animatorSet = new AnimatorSet();
             animatorSet.setDuration(1400);
-            animatorSet.playTogether(objectAnimator_scaleX, objectAnimator_scaleY,objectAnimator_alpha);
+            animatorSet.playTogether(objectAnimator_scaleX, objectAnimator_scaleY, objectAnimator_alpha);
             animatorSet.setInterpolator(new AccelerateDecelerateInterpolator());
             animatorSets[i] = animatorSet;
 
@@ -121,7 +120,9 @@ public class ThreeScaleCircleView extends LinearLayout implements IAnimationView
 
     @Override
     public <T extends IAnimationView> T setColor(int color) {
-        paint.setColor(color);
+        for (int i = 0; i < circleViews.length; i++) {
+            circleViews[i].setColor(color);
+        }
         return (T) this;
     }
 
@@ -135,9 +136,9 @@ public class ThreeScaleCircleView extends LinearLayout implements IAnimationView
         return this;
     }
 
-    public Paint getPaint() {
-        return paint;
-    }
+//    public Paint getPaint() {
+//        return paint;
+//    }
 
     @Override
     public View getView() {
