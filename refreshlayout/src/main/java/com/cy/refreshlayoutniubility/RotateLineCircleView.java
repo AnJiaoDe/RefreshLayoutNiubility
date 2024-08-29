@@ -214,11 +214,6 @@ public class RotateLineCircleView extends View implements IAnimationView{
 //        if(!isCalledStop)startLoadAnimation();
 //    }
 //
-//    @Override
-//    protected void onDetachedFromWindow() {
-//        super.onDetachedFromWindow();
-//        cancelAllAnimation();
-//    }
 
     /**
      * --------------------------------------------------------------------------
@@ -281,11 +276,6 @@ public class RotateLineCircleView extends View implements IAnimationView{
     public <T extends IAnimationView> T stopLoadAnimation() {
         cancelAllAnimation();
         return (T) this;
-    }
-    @Override
-    protected void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-        cancelAllAnimation();
     }
 
     @Override

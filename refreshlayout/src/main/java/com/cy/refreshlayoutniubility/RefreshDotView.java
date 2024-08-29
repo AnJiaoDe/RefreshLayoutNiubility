@@ -195,9 +195,4 @@
 //        }
 //    }
 //
-//    @Override
-//    protected void onDetachedFromWindow() {
-//        super.onDetachedFromWindow();
-//        cancelAllAnimation();
-//    }
 //}

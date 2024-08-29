@@ -196,15 +196,11 @@ public class ThreeScaleCircleView extends LinearLayout implements IAnimationView
     public void onDragClosed() {
     }
 
-//    @Override
-//    protected void onVisibilityChanged(@NonNull View changedView, int visibility) {
-//        super.onVisibilityChanged(changedView, visibility);
-//        if(visibility==GONE||visibility==INVISIBLE)cancelAllAnimation();
-//    }
 
-    @Override
-    protected void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-        cancelAllAnimation();
-    }
+    //以后千万别这么写了，贼吉尔坑，RV瀑布流列表加载更多放个动画VIEW经常会莫名其妙回调这个，Liner和Grid不会
+//    @Override
+//    protected void onDetachedFromWindow() {
+//        super.onDetachedFromWindow();
+//        cancelAllAnimation();
+//    }
 }

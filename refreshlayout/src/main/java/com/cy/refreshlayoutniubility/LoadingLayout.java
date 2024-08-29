@@ -99,11 +99,6 @@ public class LoadingLayout extends FrameLayout {
         return this;
     }
 
-    @Override
-    protected void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-        stopLoadAnimation();
-    }
 
     public IAnimationView getLoadingView() {
         return loadingView;

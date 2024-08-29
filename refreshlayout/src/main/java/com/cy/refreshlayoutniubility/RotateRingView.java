@@ -159,11 +159,6 @@ public class RotateRingView extends View implements IAnimationView {
 //        super.onVisibilityChanged(changedView, visibility);
 //        if(visibility==GONE||visibility==INVISIBLE)cancelAllAnimation();
 //    }
-    @Override
-    protected void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-        cancelAllAnimation();
-    }
 
     /**
      * --------------------------------------------------------------------------
