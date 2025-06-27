@@ -291,6 +291,7 @@ public class RefreshLayoutNiubility extends LinearLayout {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
+        boolean r=false;
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 downX = (int) ev.getX();
@@ -303,19 +304,20 @@ public class RefreshLayoutNiubility extends LinearLayout {
                 if (Math.abs(moveX - downX) >= Math.abs(moveY - downY)) {
                     break;
                 } else {
-                    requestDisallowInterceptTouchEvent();
+//                    requestDisallowInterceptTouchEvent();
+                    r=true;
                 }
                 downX = moveX;
                 downY = moveY;
 
                 if (headView.getView().getHeight() != 0) {
-                    requestDisallowInterceptTouchEvent();
-                    return true;
+//                    requestDisallowInterceptTouchEvent();
+                    r=true;
                 }
                 //下滑,canScrollVertically(-1)表示可以下滑，canScrollVertically(1)表示可以上滑
                 if (enableRefresh && distanceY > 0 && !contentView.canScrollVertically(-1)) {
-                    requestDisallowInterceptTouchEvent();
-                    return true;
+//                    requestDisallowInterceptTouchEvent();
+                    r=true;
                 }
 //                //上滑
 //                if (enableLoadMore && distanceY < 0 && !contentView.canScrollVertically(1)) {
@@ -324,6 +326,7 @@ public class RefreshLayoutNiubility extends LinearLayout {
 //                }
                 break;
         }
+        if(r)return true;
         return super.onInterceptTouchEvent(ev);
     }
 
@@ -391,8 +394,8 @@ public class RefreshLayoutNiubility extends LinearLayout {
         return true;
     }
 
-    private void requestDisallowInterceptTouchEvent() {
-        final ViewParent parent = getParent();
-        if (parent != null) parent.requestDisallowInterceptTouchEvent(true);
-    }
+//    private void requestDisallowInterceptTouchEvent() {
+//        final ViewParent parent = getParent();
+//        if (parent != null) parent.requestDisallowInterceptTouchEvent(true);
+//    }
 }
