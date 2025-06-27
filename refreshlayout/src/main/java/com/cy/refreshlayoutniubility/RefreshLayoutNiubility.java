@@ -196,6 +196,7 @@ public class RefreshLayoutNiubility extends LinearLayout {
     public void finishRefresh() {
         headView.refreshFinish();
     }
+
     public <T> void finishRefresh(T msg) {
         headView.refreshFinish(msg);
     }
@@ -221,7 +222,7 @@ public class RefreshLayoutNiubility extends LinearLayout {
             public void run() {
                 headView.closeRefresh();
             }
-        }, ms+1000);
+        }, ms + 1000);
     }
 
     public <T> void closeRefreshDelay(T msg) {
@@ -300,7 +301,7 @@ public class RefreshLayoutNiubility extends LinearLayout {
                 int moveY = (int) ev.getY();
                 int distanceY = moveY - downY;
                 if (Math.abs(moveX - downX) >= Math.abs(moveY - downY)) {
-                    return false;
+                    break;
                 } else {
                     requestDisallowInterceptTouchEvent();
                 }
@@ -323,13 +324,11 @@ public class RefreshLayoutNiubility extends LinearLayout {
 //                }
                 break;
         }
-        return false;
+        return super.onInterceptTouchEvent(ev);
     }
 
 
     /**
-     *
-     *
      * @return
      */
     @Override
