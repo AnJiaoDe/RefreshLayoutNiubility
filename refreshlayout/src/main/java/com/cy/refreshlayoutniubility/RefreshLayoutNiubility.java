@@ -305,7 +305,7 @@ public class RefreshLayoutNiubility extends LinearLayout {
                     break;
                 } else {
 //                    requestDisallowInterceptTouchEvent();
-                    r=true;
+//                    r=true;
                 }
                 downX = moveX;
                 downY = moveY;
