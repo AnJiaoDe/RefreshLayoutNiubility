@@ -33,6 +33,7 @@ public class HeadViewSimple extends FrameLayout implements IHeadView {
     protected boolean vibrated = false;
     protected int finishedLayoutId = R.layout.cy_refresh_finished_default;
     protected View view_finished_layout;
+
     public HeadViewSimple(Context context) {
         super(context);
         this.context = context;
@@ -217,9 +218,9 @@ public class HeadViewSimple extends FrameLayout implements IHeadView {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
+                isRefreshing = true;
                 if (callback != null) callback.onRefreshStart();
                 animationView.startLoadAnimation();
-                isRefreshing = true;
             }
         });
     }
@@ -286,10 +287,12 @@ public class HeadViewSimple extends FrameLayout implements IHeadView {
 
             @Override
             public void onLoadClosed() {
-                view_finished_layout=LayoutInflater.from(getContext()).inflate(finishedLayoutId,HeadViewSimple.this,false);
+                view_finished_layout = LayoutInflater.from(getContext()).inflate(finishedLayoutId, HeadViewSimple.this, false);
                 addView(view_finished_layout, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                isRefreshing=false;
                 if (callback != null) callback.onRefreshFinish();
-                if (callback != null) callback.bindDataToRefreshFinishedLayout(view_finished_layout,msg);
+                if (callback != null)
+                    callback.bindDataToRefreshFinishedLayout(view_finished_layout, msg);
             }
         });
 

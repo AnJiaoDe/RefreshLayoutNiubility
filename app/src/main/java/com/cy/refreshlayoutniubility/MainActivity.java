@@ -27,11 +27,10 @@ public class MainActivity extends AppCompatActivity {
         rotateRingView.setLayoutParams(layoutParams_child);
         refreshLayout.getHeadView().setAnimationView(rotateRingView);
         refreshLayout.setOnRefreshListener(new OnRefreshListener<String>() {
-
-//            @Override
-//            public void onRefreshCancel(IHeadView headView) {
-//                super.onRefreshCancel(headView);
-//            }
+            @Override
+            public void onRefreshCancel(IHeadView headView) {
+                super.onRefreshCancel(headView);
+            }
 
             @Override
             public void bindDataToRefreshFinishedLayout(View view, String msg) {
@@ -45,54 +44,22 @@ public class MainActivity extends AppCompatActivity {
                 return R.layout.refresh_finished;
             }
 
-//            @Override
-//            public void onRefreshFinish(IHeadView headView) {
-//                super.onRefreshFinish(headView);
-//            }
+            @Override
+            public void onRefreshFinish(IHeadView headView) {
+                super.onRefreshFinish(headView);
+            }
 
             @Override
             public void onRefreshStart(IHeadView headView) {
                 LogUtils.log("onRefreshStart");
+//                refreshLayout.closeRefreshDelay("有8条更新",2000);
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        refreshLayout.closeRefreshDelay("有8条更新");
-//                        refreshLayout.finishRefresh();
+                        refreshLayout.finishRefresh();
                     }
                 },2000);
             }
-
-//            @Override
-//            public void onLoadMoreStart() {
-//                LogUtils.log("onLoadMoreStart");
-//                new Handler().postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        refreshLayout.finishLoadMore(new LoadMoreFinishListener() {
-//                            @Override
-//                            public void onLoadMoreFinish(final FrameLayout footLayout) {
-//                                final TextView textView = new TextView(footLayout.getContext());
-//                                textView.setGravity(Gravity.CENTER);
-//                                textView.setBackgroundColor(Color.WHITE);
-//                                textView.setTextColor(Color.RED);
-//                                textView.setText("有8条更新");
-//                                footLayout.addView(textView, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-//
-//                                new Handler().postDelayed(new Runnable() {
-//                                    @Override
-//                                    public void run() {
-//                                        footLayout.removeView(textView);
-//                                        refreshLayout.closeLoadMore();
-//                                    }
-//                                }, 2000);
-//                            }
-//
-//                        });
-////                        refreshLayout.finishLoadMore();
-//                    }
-//                }, 3000);
-//            }
-
         });
 
         final LoadingLayout loadingLayout = findViewById(R.id.loadinglayout);
