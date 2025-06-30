@@ -58,9 +58,9 @@ public interface IHeadView {
 
     public void refreshFinish();
 
-//    public void openRefresh();
+    public void openRefresh();
 
-//    public void closeRefresh();
+    public void closeRefresh();
 
     public void setRefreshFinishedLayoutID(@LayoutRes int finishedLayoutId);
 }

@@ -22,5 +22,5 @@ public interface RefreshCallback {
      */
     void onRefreshCancel();
 
-    public <T>void bindDataToRefreshFinishedLayout(View view,T msg);
+    public <T> void bindDataToRefreshFinishedLayout(View view, T msg);
 }

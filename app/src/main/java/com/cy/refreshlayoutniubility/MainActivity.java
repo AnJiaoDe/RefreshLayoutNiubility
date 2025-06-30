@@ -47,15 +47,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onRefreshFinish(IHeadView headView) {
                 super.onRefreshFinish(headView);
+                LogUtils.log("onRefreshFinish");
             }
 
             @Override
             public void onRefreshStart(IHeadView headView) {
                 LogUtils.log("onRefreshStart");
-//                refreshLayout.closeRefreshDelay("有8条更新",2000);
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+//                        refreshLayout.closeRefreshDelay("有8条更新",2000);
                         refreshLayout.finishRefresh();
                     }
                 },2000);

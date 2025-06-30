@@ -218,8 +218,8 @@ public class HeadViewSimple extends FrameLayout implements IHeadView {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                isRefreshing = true;
-                if (callback != null) callback.onRefreshStart();
+//                isRefreshing = true;
+//                if (callback != null) callback.onRefreshStart();
                 animationView.startLoadAnimation();
             }
         });
@@ -231,17 +231,23 @@ public class HeadViewSimple extends FrameLayout implements IHeadView {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                isRefreshing = false;
                 removeView(view_finished_layout);
                 animationView.onDragClosed();
             }
         });
     }
 
-
     @Override
     public void refreshStart() {
-        openRefresh();
+        open(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                isRefreshing = true;
+                if (callback != null) callback.onRefreshStart();
+                animationView.startLoadAnimation();
+            }
+        });
     }
 
     @Override
@@ -270,13 +276,6 @@ public class HeadViewSimple extends FrameLayout implements IHeadView {
         });
 
     }
-
-
-    @Override
-    public void setRefreshFinishedLayoutID(int finishedLayoutId) {
-        this.finishedLayoutId = finishedLayoutId;
-    }
-
     @Override
     public <T> void refreshFinish(final T msg) {
         animationView.closeLoadAnimation(new AnimationViewCallback() {
@@ -296,5 +295,10 @@ public class HeadViewSimple extends FrameLayout implements IHeadView {
             }
         });
 
+    }
+
+    @Override
+    public void setRefreshFinishedLayoutID(int finishedLayoutId) {
+        this.finishedLayoutId = finishedLayoutId;
     }
 }
