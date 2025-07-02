@@ -61,14 +61,18 @@ public class RefreshLayoutNiubility extends LinearLayout {
         gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+                if (Math.abs(distanceY) <= Math.abs(distanceX)) return false;
                 if (enableRefresh && distanceY < 0 && !contentView.canScrollVertically(-1)) {
                     //下滑
                     headView.onDragingDown((int) distanceY);
+                    requestDisallowInterceptTouchEvent();
+                    return true;
                 } else if (distanceY > 0 && headView.getView().getHeight() != 0) {
                     //上滑
                     headView.onDragingUp((int) distanceY);
+                    return true;
                 }
-                return true;
+                return false;
             }
         });
     }
@@ -108,8 +112,6 @@ public class RefreshLayoutNiubility extends LinearLayout {
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent event) {
-        gestureDetector.onTouchEvent(event);
-
         VelocityTracker velocityTracker = VelocityTracker.obtain();
         velocityTracker.addMovement(event);
         switch (event.getActionMasked()) {
@@ -124,26 +126,33 @@ public class RefreshLayoutNiubility extends LinearLayout {
                 velocityTracker.computeCurrentVelocity(1000);
                 velocity_y = (int) velocityTracker.getYVelocity();
                 if (headView.getView().getHeight() != 0) headView.onDragRelease(velocity_y);
-                velocityTracker.recycle();
-                velocityTracker = null;
                 break;
         }
+        velocityTracker.recycle();
         return super.dispatchTouchEvent(event);
     }
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
         gestureDetector.onTouchEvent(event);
-        if (headView.getView().getHeight() != 0) return true;
+        //必须，否则GG
+        if (headView.getView().getHeight() != 0) {
+            requestDisallowInterceptTouchEvent();
+            return true;
+        }
         return super.onInterceptTouchEvent(event);
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         gestureDetector.onTouchEvent(event);
+        //必须true  否则GG
         return true;
     }
-
+    private void requestDisallowInterceptTouchEvent() {
+        final ViewParent parent = getParent();
+        if (parent != null) parent.requestDisallowInterceptTouchEvent(true);
+    }
     private <T extends RefreshLayoutNiubility> T addHead() {
         addView(headView.getView(), 0, new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0));
         return (T) this;
